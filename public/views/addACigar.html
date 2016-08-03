@@ -1,0 +1,122 @@
+<form name="addACigar">
+  <h3>Add A Cigar</h3>
+  <div>
+    <label for="brand">Brand:</label>
+    <input ng-hide="humidor.edit.brand" type="text" id="brand" ng-model="humidor.newBrand" ng-required="humidor.required.secondaryBrand"/>
+    <select ng-model="humidor.brand" ng-required="humidor.required.brand" ng-change="humidor.change()">
+      <option value="dontDoIt">dont choose this</option>
+      <option value="other">other</option>
+    </select>
+  </div>
+  <div>
+    <label for="name">Name:</label>
+    <input ng-hide="humidor.edit.name" type="text" id="name" ng-model="humidor.newName" ng-required="humidor.required.secondaryName"/>
+    <select ng-model="humidor.name" ng-required="humidor.required.name" ng-change="humidor.change()">
+      <option value="other">other</option>
+    </select>
+  </div>
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" ng-model="humidor.date" ng-required="humidor.required.always"/>
+  </div>
+  <div>
+    <label for="picUpload">Upload pictures:</label>
+    <input type="text" id="picUpload" ng-model="humidor.picUpload"/>
+  </div>
+  <div>
+    <label for="quantity">Quantity:</label>
+    <input type="number" min="0" id="quantity" ng-model="humidor.quantity" />
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="size">Size:</label>
+    <input type="text" min="0" id="size" ng-model="humidor.size"/>
+    <select ng-model="humidor.size">
+      <option value="3.4">3.4"</option>
+      <option value="3.9">3.9"</option>
+      <option value="4">4"</option>
+      <option value="4.3">4.3"</option>
+      <option value="4.5">4.5"</option>
+      <option value="4.8">4.8"</option>
+      <option value="5">5"</option>
+      <option value="5.5">5.5"</option>
+      <option value="5.6">5.6"</option>
+      <option value="5.7">5.7"</option>
+      <option value="6">6"</option>
+      <option value="6.1">6.1"</option>
+      <option value="6.2">6.2"</option>
+      <option value="6.4">6.4"</option>
+      <option value="6.5">6.5"</option>
+      <option value="7">7"</option>
+      <option value="7.6">7.6"</option>
+      <option value="9.2">9.2"</option>
+    </select>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="gauge">Gauge:</label>
+    <input type="text" min="0" id="gauge" ng-model="humdor.gauge" />
+    <select ng-model="humidor.gauge">
+      <option value="18">18</option>
+      <option value="20">20</option>
+      <option value="22">22</option>
+      <option value="24">24</option>
+      <option value="26">26</option>
+      <option value="28">28</option>
+      <option value="30">30</option>
+      <option value="32">32</option>
+      <option value="34">34</option>
+      <option value="36">36</option>
+      <option value="38">38</option>
+      <option value="40">40</option>
+      <option value="42">42</option>
+      <option value="44">44</option>
+      <option value="46">46</option>
+      <option value="48">48</option>
+      <option value="50">50</option>
+      <option value="52">52</option>
+      <option value="54">54</option>
+      <option value="56">56</option>
+      <option value="58">58</option>
+      <option value="60">60</option>
+      <option value="62">62</option>
+      <option value="64">64</option>
+      <option value="66">66</option>
+      <option value="68">68</option>
+      <option value="70">70</option>
+      <option value="72">72</option>
+      <option value="74">74</option>
+      <option value="76">76</option>
+      <option value="78">78</option>
+    </select>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="origin">Origin:</label>
+    <input type="text" id="origin" ng-model="humidor.origin"/>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="filler">Filler:</label>
+    <input type="text" id="filler" ng-model="humidor.filler"/>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="body">Body:</label>
+    <input type="text" id="body" ng-model="humidor.body"/>
+    <select ng-model="humidor.body">
+      <option value="mild">Mild</option>
+      <option value="mild-medium">Mild-medium</option>
+      <option value="medium">Medium</option>
+      <option value="medium-full">Medium-full</option>
+      <option value="full">Full</option>
+    </select>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="condition">Physical Condition:</label>
+    <input type="text" id="condition" ng-model="humidor.condition"/>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="comments">Comments:</label>
+    <input type="text" id="comments" ng-model="humidor.comments"/>
+  </div>
+  <button ng-show="humidor.edit.less" ng-click="humidor.moreOptions(humidor.edit)">More Options</button>
+  <button ng-hide="humidor.edit.more" ng-click="humidor.lessOptions(humidor.edit)">Less Options</button>
+  <button ng-click="humidor.save()">Save</button>
+  <button ng-click="humidor.cancel()">Cancel</button>
+</form>

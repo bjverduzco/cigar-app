@@ -1,0 +1,14 @@
+<form>
+  <div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" ng-model="login.username"/>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" ng-model="login.password"/>
+  </div>
+  <div>
+    <button ng-click="login.login()">Log In</button>
+    <button ng-click="login.register()">Register</button>
+  </div>
+</form>

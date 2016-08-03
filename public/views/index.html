@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="cigarApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Witty cigar app name</title>
+    <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular-route/angular-route.min.js"></script>
+    <script src="scripts/cigarApp.module.js"></script>
+    <script src="scripts/cigarApp.config.js"></script>
+    <script src="scripts/MainController.js"></script>
+    <script src="scripts/LoginController.js"></script>
+    <script src="scripts/RegisterController.js"></script>
+    <script src="scripts/HumidorController.js"></script>
+    <script src="scripts/RatingsController.js"></script>
+    <script src="scripts/HygrometerController.js"></script>
+    
+
+    <!-- <script src="assets/client.min.js"></script> -->
+
+    <base href="/" />
+  </head>
+  <body ng-controller="MainController as main">
+    <h1>Witty Cigar App Name</h1>
+
+    <div ng-view>
+
+    </div>
+  </body>
+</html>
