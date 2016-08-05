@@ -1,0 +1,83 @@
+<form id="addARating" novalidate>
+  <h3>Add a Rating</h3>
+  <div>
+    <label for="brand">Brand:</label>
+    <input ng-hide="ratings.edit.brand" type="text" id="brand" ng-model="ratings.newBrand" ng-required="ratings.required.secondaryBrand"/>
+    <select ng-model="ratings.brand" ng-required="ratings.required.brand" ng-change="ratings.change()">
+      <option value="other">other</option>
+    </select>
+  </div>
+  <div>
+    <label for="name">Name:</label>
+    <input ng-hide="ratings.edit.name" type="text" id="name" ng-model="ratings.newName" ng-required="ratings.required.secondaryName"/>
+    <select ng-model="ratings.name" ng-required="ratings.required.name" ng-change="ratings.change()">
+      <option value="other">other</option>
+    </select>
+  </div>
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" ng-model="ratings.date" ng-required="ratings.required.always"/>
+  </div>
+  <div>
+    <label for="picUpload">Upload pictures:</label>
+    <input />
+  </div>
+  <div>
+    <label for="rating">Rating</label>
+    <input type="number" id="rating" ng-model="ratings.rating" min="0" max="10" />
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="size">Size:</label>
+    <select ng-model="ratings.size" ng-options="size.number for size in ratings.sizes">
+      <option value="">- Choose a Size -</option>
+    </select>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="gauge">Gauge:</label>
+    <select ng-model="ratings.gauge" ng-options="gauge.number for gauge in ratings.gauges">
+      <option value="">-Choose a Gauge-</option>
+    </select>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="origin">Origin:</label>
+    <input />
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="wrapper">Wrapper:</label>
+    <input />
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="filler">Filler:</label>
+    <input />
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="body">Body:</label>
+    <input />
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="taste">Taste:</label>
+    <input type="text" id="taste" ng-model="ratings.taste"/>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="draw">Draw:</label>
+    <input type="text" id="draw" ng-model="ratings.draw"/>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="condition">Physical Condition:</label>
+    <input type="text" id="condition" ng-model="ratings.condition"/>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="pairing">Pairing:</label>
+    <input type="text" id="pairing" ng-model="ratings.pairing"/>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="comments">Comments:</label>
+    <input type="text" id="comments" ng-model="ratings.comments"/>
+  </div>
+  <div>
+    <button ng-show="ratings.edit.less" ng-click="ratings.moreOptions(ratings.edit)">More Options</button>
+    <button ng-hide="ratings.edit.more" ng-click="ratings.lessOptions(ratings.edit)">Less Options</button>
+    <button ng-click="ratings.save()">Save</button>
+    <button ng-click="ratings.cancel()">Cancel</button>
+  </div>
+</form>

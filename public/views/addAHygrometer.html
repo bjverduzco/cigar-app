@@ -1,0 +1,33 @@
+<form>
+  <div>
+    <label for="name">Name: </label>
+    <input type="text" ng-model="hygrometer.name" id="name" ng-required="hygrometer.required"/>
+  </div>
+  <div>
+    <label for="minTemp">Minimum Temperature: </label>
+    <input type="number" min="50" max="100" ng-model="hygrometer.minTemp" id="minTemp" ng-required="hygrometer.required"/>
+  </div>
+  <div>
+    <label for="maxTemp">Maximum Temperature: </label>
+    <input type="number" min="50" max="100" id="maxTemp" ng-model="hygrometer.maxTemp" ng-required="hygrometer.required"/>
+  </div>
+  <div>
+    <label for="minHumidity">Minimum Humidity: </label>
+    <input type="number" min="50" max="100" id="minHumidity" ng-model="hygrometer.minHumidity" ng-required="hygrometer.required"/>
+  </div>
+  <div>
+    <label for="maxHumidity">Maximum Humidity: </label>
+    <input type="number" min="50" max="100" id="maximumHumidity" ng-model="hygrometer.maxHumidity" ng-required="hygrometer.required"/>
+  </div>
+  <div>
+    <label for="location">Location: </label>
+    <input type="text" id="location" ng-model="hygrometer.location" ng-required="hygrometer.required"/>
+  </div>
+  <div>
+    <input type="radio" name="display" value="true" ng-model="hygrometer.display"/>Display on header<br />
+  </div>
+  <div>
+    <button ng-click="hygrometer.save()">Save</button>
+    <button ng-click="hygrometer.cancel()">Cancel</button>
+  </div>
+</form>

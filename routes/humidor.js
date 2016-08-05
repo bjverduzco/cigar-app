@@ -24,4 +24,8 @@ router.post('/addACigar', function(request, response, next){
   // response.sendStatus(200);
 });
 
+// router.get('/ratings', function(request, response){
+//   response.sendFile(path.join(__dirname, '../public/views/ratings.html'));
+// });
+
 module.exports = router;

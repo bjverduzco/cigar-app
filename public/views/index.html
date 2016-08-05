@@ -23,7 +23,23 @@
   </head>
   <body ng-controller="MainController as main">
     <h1>Witty Cigar App Name</h1>
-
+    <div id="nav bar">
+      <!-- button vs href looking like a button -->
+      <button ng-click="main.humidor()">Humidor List</button>
+      <!-- <a href="/humidor">Humidor List</a> -->
+      <button ng-click="main.ratings()">Ratings List</button>
+      <!-- <a href="/ratings">Ratings List</a> -->
+      <button ng-click="main.hygrometer()">Hygrometer List</button>
+      <!-- <a href="/hygrometer">Hygrometer List</a> -->
+      <button ng-click="main.addACigar()">Add a Cigar</button>
+      <!-- <a href="/humidor/addACigar">Add a Cigar</a> -->
+      <button ng-click="main.addARating()">Add a Rating</button>
+      <!-- <a href="/ratings/addARating">Add a Rating</a> -->
+      <button ng-click="main.addAHygrometer()">Add a Hygrometer</button>
+      <!-- <a href="/hygrometer/addAHygrometer">Add a Hygrometer</a> -->
+      <br />
+      <br />
+    </div>
     <div ng-view>
 
     </div>

@@ -7,8 +7,11 @@ router.get('/', function(request, response){
 });
 
 //post method to the server and db
-router.post('/', passport.authenticate('local'), function(request, response){
-  response.sendStatus(200);
+router.post('/', passport.authenticate('local'), function(request, response) {
+  var sendData = {};
+  sendData.username = request.user.username;
+  sendData.id = request.user.id;
+  response.send(sendData);
 });
 
 module.exports = router;

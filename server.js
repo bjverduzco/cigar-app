@@ -12,6 +12,8 @@ var register = require('./routes/register');
 var login = require('./routes/login');
 var humidor = require('./routes/humidor');
 var Cigar = require('./models/cigar');
+var ratings = require('./routes/ratings');
+var hygrometer = require('./routes/hygrometer');
 
 var app = express();
 
@@ -36,6 +38,8 @@ app.use('/', index);
 app.use('/login', login);
 app.use('/register', register);
 app.use('/humidor', humidor);
+app.use('/ratings', ratings);
+// app.use('/hygrometer', hygrometer);
 
 app.use('/api', function(request, response, next){
   if(request.isAuthenticated()){

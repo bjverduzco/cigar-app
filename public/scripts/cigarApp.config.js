@@ -37,7 +37,7 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
     controller: 'RatingsController',
     controllerAs: 'ratings'
   })
-  .when('/addARating', {
+  .when('/ratings/addARating', {
     templateUrl: '/views/addARating.html',
     controller: 'RatingsController',
     controllerAs: 'ratings'
@@ -47,7 +47,7 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
     controller: 'HygrometerController',
     controllerAs: 'hygrometer'
   })
-  .when('/addAHygrometer', {
+  .when('/hygrometer/addAHygrometer', {
     templateUrl: '/views/addAHygrometer.html',
     controller: 'HygrometerController',
     controllerAs: 'hygrometer'

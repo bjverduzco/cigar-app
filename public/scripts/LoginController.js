@@ -22,7 +22,7 @@ angular.module('cigarApp').controller('LoginController', ['$http', '$location', 
 
   function handleFailure(response){
     console.log('Failure Loggin in', response);
-    $location.path('/');
+    // $location.path('/');
   }
 
   vm.register = function(){

@@ -1,5 +1,17 @@
-angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', function($http, $location, CigarService){
+angular.module('cigarApp').controller('HumidorController', ['$http', '$location', '$route', '$routeParams', 'CigarService', function($http, $location, $route, $routeParams, CigarService){
   var vm = this;
+
+  vm.$route = $route;
+  vm.$location = $location;
+  vm.$routeParams = $routeParams;
+
+  vm.reload = function(){
+    $route.reload();
+  };
+
+  vm.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3}, {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5},
+    {number: 5.6}, {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4}, {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
+  vm.gauges = [{number: 18}, {number: 20}, {number: 22}, {number: 24}, {number: 26}, {number: 28}, {number: 30}, {number: 32}, {number: 34}, {number: 36}, {number: 38}, {number: 40}, {number: 42}, {number: 44}, {number: 46}, {number: 48}, {number: 50}, {number: 52}, {number: 54}, {number: 56}, {number: 58}, {number: 60}, {number: 62}, {number: 64}, {number: 66}, {number: 68}, {number: 70}, {number: 72}, {number: 74}, {number: 76}, {number: 78}];
 
   vm.cashMoney = 'money in the bank';
   vm.brand = '';
@@ -10,8 +22,11 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
   vm.picUpload = '';
   vm.quantity = '';
   vm.size = '';
+  vm.potentialSize = '';
   vm.gauge = '';
+  vm.potentialGauge = '';
   vm.orgin = '';
+  vm.wrapper = '';
   vm.filler = '';
   vm.body = '';
   vm.condition = '';
@@ -95,9 +110,10 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     sendData.date = vm.date;
     sendData.picUpload = vm.picUpload;
     sendData.quantity = vm.quantity;
-    sendData.size = vm.size;
-    sendData.gauge = vm.gauge;
+    sendData.size = vm.size.number;
+    sendData.gauge = vm.gauge.number;
     sendData.origin = vm.orgin;
+    sendData.wrapper = vm.wrapper;
     sendData.filler = vm.filler;
     sendData.body = vm.body;
     sendData.condition = vm.condition;
@@ -115,13 +131,6 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
   };
 
   vm.cancel = function(){
-    $http.get('/humidor').then(function(response){
-      console.log('Success canceling add a cigar and routing to /humidor', response);
-      $location.path('/humidor');
-    }, function(err){
-      console.log('Failure to cancel and route to /humidor, trying to reroute anyways', response);
-      $location.path('/humidor');
-    });
+    $location.path('/humidor');
   };
-
 }]);
