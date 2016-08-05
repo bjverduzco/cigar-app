@@ -1,8 +1,7 @@
-angular.module('cigarApp').controller('HumidorController', ['$http', '$location', function($http, $location){
+angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', function($http, $location, CigarService){
   var vm = this;
 
   vm.cashMoney = 'money in the bank';
-  // vm.brand = '';
   vm.brand = '';
   vm.newBrand = '';
   vm.name = '';
@@ -124,17 +123,5 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       $location.path('/humidor');
     });
   };
-
-  // vm.brand
-  // name
-  // date
-  // picUpload
-  // size
-  // gauge
-  // origin
-  // filler
-  // body
-  // condition
-  // comments
 
 }]);

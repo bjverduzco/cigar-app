@@ -1,5 +1,8 @@
-angular.module('cigarApp').controller('LoginController', ['$http', '$location', function($http, $location){
+angular.module('cigarApp').controller('LoginController', ['$http', '$location', 'UserService',
+ function($http, $location, UserService) {
   var vm = this;
+
+  vm.user = UserService.data;
 
   vm.username = '';
   vm.password = '';
@@ -10,11 +13,10 @@ angular.module('cigarApp').controller('LoginController', ['$http', '$location', 
     sendData.username = vm.username;
     sendData.password = vm.password;
 
-    $http.post('/login', sendData).then(handleSuccess, handleFailure);
+    UserService.login(sendData).then(handleSuccess, handleFailure);
   };
 
   function handleSuccess(response){
-    console.log('Success Logging in', response);
     $location.path('/humidor');
   }
 
