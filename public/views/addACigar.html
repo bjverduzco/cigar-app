@@ -3,21 +3,26 @@
   <div>
     <label for="brand">Brand:</label>
     <input ng-hide="humidor.edit.brand" type="text" id="brand" ng-model="humidor.newBrand" ng-required="humidor.required.secondaryBrand"/>
-    <select ng-model="humidor.brand" ng-required="humidor.required.brand" ng-change="humidor.change()">
-      <option value="dontDoIt">dont choose this</option>
+    <select ng-model="humidor.brand" ng-required="humidor.required.brand" ng-change="humidor.change()" ng-options=" brand.brand for brand in humidor.cigarData | unique: 'brand'">
+      <option value="">- Choose a Brand -</option>
       <option value="other">other</option>
     </select>
+    <span id="required">* - required</span>
   </div>
   <div>
     <label for="name">Name:</label>
     <input ng-hide="humidor.edit.name" type="text" id="name" ng-model="humidor.newName" ng-required="humidor.required.secondaryName"/>
-    <select ng-model="humidor.name" ng-required="humidor.required.name" ng-change="humidor.change()">
-      <option value="other">other</option>
+    <select ng-model="humidor.name" ng-required="humidor.required.name" ng-change="humidor.change()" ng-options="name.name group by name.brand for name in humidor.cigarData | filter:{brand: humidor.brand.brand}">
+      <option value="">- Choose a Name -</option>
+      <!-- <option value="other">other</option> -->
     </select>
+    <span id="required">* - required</span>
+    {{humidor.name}}
   </div>
   <div>
     <label for="date">Date:</label>
     <input type="date" id="date" ng-model="humidor.date" ng-required="humidor.required.always"/>
+    <span id="required">* - required</span>
   </div>
   <div>
     <label for="picUpload">Upload pictures:</label>
@@ -25,7 +30,8 @@
   </div>
   <div>
     <label for="quantity">Quantity:</label>
-    <input type="number" min="0" id="quantity" ng-model="humidor.quantity" />
+    <input type="number" min="0" id="quantity" ng-model="humidor.quantity" ng-required="humidor.required.always"/>
+    <span id="required">* - required</span>
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="size">Size:</label>
@@ -44,24 +50,38 @@
   <div ng-hide="humidor.edit.more">
     <label for="origin">Origin:</label>
     <input type="text" id="origin" ng-model="humidor.origin"/>
+    <select ng-model="humidor.origin"  ng-options="origin.country for origin in humidor.cigarData.originAll | filter: {country: humidor.name.origin}" ng-init="humidor.origin = humidor.name.origin">
+      <option value="">- Choose a Country Origin -</option>
+    </select>
+
   </div>
   <div ng-hide="humidor.edit.more">
-    <label for="wrapper">Wrapper:</label>
-    <input type="text" id="wrapper" ng-model="humidor.wrapper"/>
+    <label for="wrapperColor">Wrapper Color:</label>
+    <input type="text" id="wrapperColor" ng-model="humidor.wrapperColor"/>
+    <select ng-model="humidor.wrapperColor" ng-options="wrapper.name for wrapper in humidor.cigarData.wrapperColor | filter: {name: humidor.name.wrapperColor} : true">
+      <option value="">- Choose a Wrapper Color -</option>
+    </select>
+    <span>{{humidor.wrapperColor.description}}</span>
+  </div>
+  <div ng-hide="humidor.edit.more">
+    <label for="wrapperCountry">Wrapper Country of Origin:</label>
+    <input type="text" id="wrapperCountry" ng-model="humidor.wrapperCountry"/>
+    <select ng-model="humidor.wrapperCountry" ng-options="wrapper.country for wrapper in humidor.cigarData.wrapperCountry | filter: {country: humidor.name.wrapperCountry}">
+      <option value="">- Choose a Wrapper Country of Origin -</option>
+    </select>
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="filler">Filler:</label>
     <input type="text" id="filler" ng-model="humidor.filler"/>
+    <select ng-model="humidor.filler" multiple="true"; ng-options="filler.country for filler in humidor.cigarData.fillerAll | fillerFilter: humidor.name">
+      <option value="">- Choose a Filler(s) -</option>
+    </select>
+    <span>{{humidor.filler}}</span>
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="body">Body:</label>
-    <input type="text" id="body" ng-model="humidor.body"/>
-    <select ng-model="humidor.body">
-      <option value="mild">Mild</option>
-      <option value="mild-medium">Mild-medium</option>
-      <option value="medium">Medium</option>
-      <option value="medium-full">Medium-full</option>
-      <option value="full">Full</option>
+    <select ng-model="humidor.body" ng-options="body.name for body in humidor.cigarData.body | filter: {name: humidor.name.body} : true">
+      <option value="">- Choose a Body -</option>
     </select>
   </div>
   <div ng-hide="humidor.edit.more">

@@ -6,6 +6,7 @@
     <select ng-model="ratings.brand" ng-required="ratings.required.brand" ng-change="ratings.change()">
       <option value="other">other</option>
     </select>
+    <span id="required">* - required</span>
   </div>
   <div>
     <label for="name">Name:</label>
@@ -13,10 +14,12 @@
     <select ng-model="ratings.name" ng-required="ratings.required.name" ng-change="ratings.change()">
       <option value="other">other</option>
     </select>
+    <span id="required">* - required</span>
   </div>
   <div>
     <label for="date">Date:</label>
     <input type="date" id="date" ng-model="ratings.date" ng-required="ratings.required.always"/>
+    <span id="required">* - required</span>
   </div>
   <div>
     <label for="picUpload">Upload pictures:</label>
@@ -24,7 +27,8 @@
   </div>
   <div>
     <label for="rating">Rating</label>
-    <input type="number" id="rating" ng-model="ratings.rating" min="0" max="10" />
+    <input type="number" id="rating" ng-model="ratings.rating" min="0" max="10" ng-required="ratings.required.always"/>
+    <span id="required">* - required</span>
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="size">Size:</label>
@@ -52,7 +56,13 @@
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="body">Body:</label>
-    <input />
+    <select ng-model="humidor.body">
+      <option value="mild">Mild</option>
+      <option value="mild-medium">Mild-medium</option>
+      <option value="medium">Medium</option>
+      <option value="medium-full">Medium-full</option>
+      <option value="full">Full</option>
+    </select>
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="taste">Taste:</label>
