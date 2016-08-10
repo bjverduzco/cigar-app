@@ -122,6 +122,7 @@ INSERT INTO cigars (brand) VALUES
 ('Natural Cigars'),
 ('Nat Sherman'),
 ('Oliva'),
+('other')
 ('Padron'),
 ('Partagas'),
 ('Perdomo'),
@@ -163,3 +164,6 @@ Oscuro(Double Maduro)
 -- wrappper countries
 'Cuba', 'Ecuador', 'Indonesia', 'Honduras', 'Nicaragua', 'Costa Rica', 'Brazil',
 'Mexico', 'Cameroon', 'United States'
+
+-- populating all brands with name 'other'
+UPDATE cigars SET name = 'other';

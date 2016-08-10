@@ -36,21 +36,21 @@
   <div ng-hide="humidor.edit.more">
     <label for="size">Size:</label>
     <!-- <input type="text" min="0" id="size" ng-model="humidor.size"/> -->
-    <select ng-model="humidor.size" ng-options="size.number for size in humidor.sizes">
+    <select ng-model="humidor.size" ng-options="size.number for size in humidor.cigarData.sizes">
       <option value="">- Choose a Size -</option>
     </select>
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="gauge">Gauge:</label>
     <!-- <input type="text" id="gauge" ng-model="humidor.gauge" /> -->
-    <select ng-model="humidor.gauge" ng-options="gauge.number for gauge in humidor.gauges">
+    <select ng-model="humidor.gauge" ng-options="gauge.number for gauge in humidor.cigarData.gauges">
       <option value="">- Choose a Gauge -</option>
     </select>
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="origin">Origin:</label>
     <input type="text" id="origin" ng-model="humidor.origin"/>
-    <select ng-model="humidor.origin"  ng-options="origin.country for origin in humidor.cigarData.originAll | filter: {country: humidor.name.origin}" ng-init="humidor.origin = humidor.name.origin">
+    <select ng-model="humidor.origin"  ng-options="origin.country for origin in humidor.cigarData.originAll | filter: {country: humidor.name.origin}">
       <option value="">- Choose a Country Origin -</option>
     </select>
 
@@ -73,7 +73,7 @@
   <div ng-hide="humidor.edit.more">
     <label for="filler">Filler:</label>
     <input type="text" id="filler" ng-model="humidor.filler"/>
-    <select ng-model="humidor.filler" multiple="true"; ng-options="filler.country for filler in humidor.cigarData.fillerAll | fillerFilter: humidor.name">
+    <select ng-model="humidor.filler" multiple="true" ng-options="filler.country for filler in humidor.cigarData.fillerAll | fillerFilter: humidor.name">
       <option value="">- Choose a Filler(s) -</option>
     </select>
     <span>{{humidor.filler}}</span>

@@ -14,18 +14,18 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
     templateUrl: '/views/humidor.html',
     controller: 'HumidorController',
     controllerAs: 'humidor',
-    // resolve: {
-    //   cigarData: function(CigarService){
-    //     return CigarService.getCigars().then(function(response){
-    //       return response.data;
-    //     });
+    resolve: {
+      cigarData: function(CigarService){
+        return CigarService.getCigars().then(function(response){
+          return response.data;
+        });
     //   },
     //   userCigarData: function(CigarService){
     //     return CigarService.getUserCigars().then(function(response){
     //       return response.data;
     //     });
     //   }
-    // }
+    }
   })
   .when('/humidor/addACigar', {
     templateUrl: '/views/addACigar.html',

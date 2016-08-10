@@ -3,7 +3,7 @@
   <div>
     <label for="brand">Brand:</label>
     <input ng-hide="ratings.edit.brand" type="text" id="brand" ng-model="ratings.newBrand" ng-required="ratings.required.secondaryBrand"/>
-    <select ng-model="ratings.brand" ng-required="ratings.required.brand" ng-change="ratings.change()">
+    <select ng-model="ratings.brand" ng-required="ratings.required.brand" ng-change="ratings.change()" ng-options="brand.brand for brand in ratings.cigarData | unique: 'brand'">
       <option value="other">other</option>
     </select>
     <span id="required">* - required</span>
@@ -11,7 +11,7 @@
   <div>
     <label for="name">Name:</label>
     <input ng-hide="ratings.edit.name" type="text" id="name" ng-model="ratings.newName" ng-required="ratings.required.secondaryName"/>
-    <select ng-model="ratings.name" ng-required="ratings.required.name" ng-change="ratings.change()">
+    <select ng-model="ratings.name" ng-required="ratings.required.name" ng-change="ratings.change()" ng-options="name.name group by name.brand for name in ratings.cigarData | filter:{brand: ratings.brand.brand}">
       <option value="other">other</option>
     </select>
     <span id="required">* - required</span>
@@ -32,36 +32,49 @@
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="size">Size:</label>
-    <select ng-model="ratings.size" ng-options="size.number for size in ratings.sizes">
+    <select ng-model="ratings.size" ng-options="size.number for size in ratings.cigarData.sizes">
       <option value="">- Choose a Size -</option>
     </select>
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="gauge">Gauge:</label>
-    <select ng-model="ratings.gauge" ng-options="gauge.number for gauge in ratings.gauges">
+    <select ng-model="ratings.gauge" ng-options="gauge.number for gauge in ratings.cigarData.gauges">
       <option value="">-Choose a Gauge-</option>
     </select>
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="origin">Origin:</label>
-    <input />
+    <input type="text" id="origin" ng-model="ratings.origin"/>
+    <select ng-model="ratings.origin" ng-options="origin.country for origin in ratings.cigarData.originAll | filter: {country: ratings.name.origin}">
+      <option value="">- Choose a Country Origin -</option>
+    </select>
   </div>
   <div ng-hide="ratings.edit.more">
-    <label for="wrapper">Wrapper:</label>
-    <input />
+    <label for="wrapperColor">Wrapper Color:</label>
+    <input type="text" id="wrapperColor" ng-model="ratins.wrapperColor"/>
+    <select ng-model="ratings.wrapperColor" ng-options="wrapper.name for wrapper in ratings.cigarData.wrapperColor | filter: {name: ratings.name.wrapperColor} : true">
+      <option value="">- Choose a Wrapper Color -</option>
+    </select>
+  </div>
+  <div ng-hide="ratings.edit.more">
+    <label for="wrapperCountry">Wrapper Country of Origin:</label>
+    <input type="text" id="wrapperCountry" ng-model="ratings.wrapperCountry" />
+    <select ng-model="ratings.wrapperCountry" ng-options="wrapper.country for wrapper in ratings.cigarData.wrapperCountry | filter: {country: ratings.name.wrapperCountry}">
+      <option value="">- Choose a Wrapper Country of Origin -</option>
+    </select>
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="filler">Filler:</label>
-    <input />
+    <input type="text" id="filler" ng-model="ratings.filler"/>
+    <select ng-model="ratings.filler" multiple="true" ng-options="filler.country for filler in ratings.cigarData.fillerAll | fillerFilter: ratings.name">
+      <option value="">- Choose a Filler(s) -</option>
+    </select>
+    <span>{{ratings.filler}}</span>
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="body">Body:</label>
-    <select ng-model="humidor.body">
-      <option value="mild">Mild</option>
-      <option value="mild-medium">Mild-medium</option>
-      <option value="medium">Medium</option>
-      <option value="medium-full">Medium-full</option>
-      <option value="full">Full</option>
+    <select ng-model="ratings.body" ng-options="body.name for body in ratings.cigarData.body | filter: {name: ratings.name.body} : true">
+      <option value="">- Choose a Body -</option>
     </select>
   </div>
   <div ng-hide="ratings.edit.more">
