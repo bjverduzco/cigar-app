@@ -1,4 +1,4 @@
-angular.module('cigarApp').factory('CigarService', ['$http', function($http, CigarService) {
+angular.module('cigarApp').factory('CigarService', ['$http', '$location', function($http, $location, CigarService) {
   var vm = this;
   vm.cigarData = {};
   vm.userCigarData = {};
@@ -102,6 +102,17 @@ angular.module('cigarApp').factory('CigarService', ['$http', function($http, Cig
     return;
   };
 
+  function cigarSave(sendData){
+    return $http.post('/humidor/addACigar', sendData).then(function(response){
+      console.log('success adding a cigar', response);
+      $location.path('/humidor');
+    }, function(err){
+      console.log('err adding a cigar', err);
+      response.sendStatus(500);
+    });
+  };
+
+  //do i need this?
   function cigarDataTest(){
     return vm.cigarData;
   }
@@ -110,7 +121,8 @@ angular.module('cigarApp').factory('CigarService', ['$http', function($http, Cig
     getCigars: getCigars,
     getUserCigars: getUserCigars,
     ratings: ratings,
-    cigarData: vm.cigarData
+    cigarData: vm.cigarData,
+    cigarSave: cigarSave
   };
 
 }]).filter('unique', ['CigarService', function(CigarService) {
@@ -127,11 +139,11 @@ angular.module('cigarApp').factory('CigarService', ['$http', function($http, Cig
     };
 }]).filter('fillerFilter', ['CigarService', function(CigarService) {
     return function(fillerAll, cigarsFillers) {
-      console.log(cigarsFillers.filler);
+      console.log('1', cigarsFillers.filler);
       if(cigarsFillers == '' | cigarsFillers == null){
         return fillerAll;
       }
-      // console.log(fillerAll);
+      console.log('2', fillerAll);
       // var filler = {};
       var fillerList = [];
       // for(var i = 0; i < fillerAll.length; i++){

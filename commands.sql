@@ -167,3 +167,7 @@ Oscuro(Double Maduro)
 
 -- populating all brands with name 'other'
 UPDATE cigars SET name = 'other';
+
+
+--getting the whole cigar TABLE
+SELECT * FROM cigars;

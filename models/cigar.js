@@ -14,20 +14,21 @@ function create(data, callback){
     if(err);
     done();
     return callback(err);
-  }
 
-  // client.query('INSERT INTO cigars (brand, name, origin, filler, body) VALUES ($1, $2, $3, $4, $5);',
-  // [data.brand, data.name, data.origin, data.filler, data.body], function(err, result){
-  //   if(err){
-  //     done();
-  //     return callback(err);
-  //   }
-  //   else{
-  //     callback(null, result.rows[0]);
-  //     done();
-  //   }
-  // });
-)};
+
+    client.query('INSERT INTO cigars (brand, name, origin, wrapperColor, wrapperCountry, filler, body) VALUES ($1, $2, $3, $4, $5);',
+    [data.brand, data.name, data.origin.country, data.wrapperColor, data.wrapperCountry.country, data.filler, data.body.name], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
 
 module.exports = {
   create: create

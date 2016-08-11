@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var path = require('path');
+var Cigars = require('../models/cigar');
 
 router.get('/', function(request, response){
   response.sendFile(path.join(__dirname, '../public/views/humidor.html'));
@@ -19,6 +20,7 @@ router.post('/addACigar', function(request, response, next){
     }
     else{
       console.log('success adding cigar');
+      response.redirect('/humidor');
     }
   });
   // response.sendStatus(200);

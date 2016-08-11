@@ -209,11 +209,19 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
   vm.save = function(){
     var sendData = {};
     console.log('clicked');
+    if(vm.date instanceof Date !== true | vm.quantity < 1 | vm.quantity === ''){
+      return alert('Please fill out all of the required fields.');
+    }
 
     //if brand dropdown option other is chosen, newBrand becomes a required field
     //making newBrand the data that needs to be added to the db
-    if(vm.newBrand === ''){
-      sendData.brand = vm.brand;
+    // had the first if as an or with | vm.newBrand === '' | but i think this is
+    //the proper way for validation that i want
+    if(vm.brand !== 'other'){
+      sendData.brand = vm.brand.brand;
+    }
+    else if(vm.brand === 'other' || vm.newBrand === ''){
+      return alert('Please fill out all of the required fields.');
     }
     else{
       sendData.brand = vm.newBrand;
@@ -221,8 +229,10 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
 
     //if name dropdown option other is chosen, newName becomes a required field
     //making newName the data that needs to be added to the db
-    if(vm.newName === ''){
-      sendData.name = vm.name;
+    // had the first if as an or with | vm.newName === '' | but i think this is
+    // the proper way for validation that i want
+    if(vm.name !== 'other'){
+      sendData.name = vm.name.name;
     }
     else{
       sendData.name = vm.newName;
@@ -245,13 +255,22 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     console.log(sendData);
 
     //posting the info to the db and routing if successful to /humidor
-    $http.post('/humidor/addACigar', sendData).then(function(response){
-      console.log('success adding cigar', response);
-      $location.path('/humidor');
-    }, function(err){
-      console.log('Failure adding cigar', err);
-    });
+    // $http.post('/humidor/addACigar', sendData).then(function(response){
+    //   console.log('success adding cigar', response);
+    //   $location.path('/humidor');
+    // }, function(err){
+    //   console.log('Failure adding cigar', err);
+    // });
+    CigarService.cigarSave(sendData).then(handleSuccess, handleFailure);
+  };
 
+  function handleSuccess(response){
+    console.log('great success', response);
+    $location.path('/humidor');
+  };
+
+  function handleFailure(response){
+    console.log('miserable failure', response);
   };
 
   //form cancel function routing to /humidor
