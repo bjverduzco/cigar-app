@@ -5,25 +5,25 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
 
   //variables to help populate fields in /addACigar and /addARating for filler,
   //wrappers(description), wrapper countries, and origin, size and gauge
-  vm.cigarData = [{brand:'5 Vegas'},
-  {brand:'A.J. Fernandez'},
-  {brand:'AVO', name: 'Bleh', origin: 'Dominican Republic', wrapperColor: 'Maduro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Costa Rica', 'Cameroon']},
-  {brand:'AVO', name: 'test', origin: 'Cuba', wrapperColor: 'Claro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Cuba', 'Jamaica']},
-  {brand:'AVO', name: '1234', origin: '', wrapperColor: '', wrapperCountry: 'Mexico', body: 'Mild-medium', filler: ['Costa Rica', 'Cameroon']},
-  {brand:'AVO', name: 'jfjfjjfjf', origin: '', wrapperColor: '', wrapperCountry: '', body: 'Full', filler: ['Philippines', 'Nicaragua']},
-  {brand:'AVO', name: 'fds', origin: '', wrapperColor: 'Maduro', wrapperCountry: 'Brazil', body: '', filler: ['Dominican Republic', 'Mexico']},
-  {brand:'AVO', name: 'whynot', filler: []},
-  {brand:'Acid', name: 'test'},
-  {brand:'Aging Room', name: 'other'},
-  {brand:'Alec Bradley'},
-  {brand:'El Aroma'},
-  {brand:'El Aroma de Cuba'},
-  {brand: 'other', name: 'other'},
-  {brand:'Tatiana'},
-  {brand:'Tatuaje', name: 'idk'},
-  {brand: 'Te Amo'},
-  {brand: 'Torano', name: 'Exodus 1958'},
-  {brand: 'Vegafina'}];
+  // vm.cigarData = [{brand:'5 Vegas'},
+  // {brand:'A.J. Fernandez'},
+  // {brand:'AVO', name: 'Bleh', origin: 'Dominican Republic', wrapperColor: 'Maduro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Costa Rica', 'Cameroon']},
+  // {brand:'AVO', name: 'test', origin: 'Cuba', wrapperColor: 'Claro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Cuba', 'Jamaica']},
+  // {brand:'AVO', name: '1234', origin: '', wrapperColor: '', wrapperCountry: 'Mexico', body: 'Mild-medium', filler: ['Costa Rica', 'Cameroon']},
+  // {brand:'AVO', name: 'jfjfjjfjf', origin: '', wrapperColor: '', wrapperCountry: '', body: 'Full', filler: ['Philippines', 'Nicaragua']},
+  // {brand:'AVO', name: 'fds', origin: '', wrapperColor: 'Maduro', wrapperCountry: 'Brazil', body: '', filler: ['Dominican Republic', 'Mexico']},
+  // {brand:'AVO', name: 'whynot', filler: []},
+  // {brand:'Acid', name: 'test'},
+  // {brand:'Aging Room', name: 'other'},
+  // {brand:'Alec Bradley'},
+  // {brand:'El Aroma'},
+  // {brand:'El Aroma de Cuba'},
+  // {brand: 'other', name: 'other'},
+  // {brand:'Tatiana'},
+  // {brand:'Tatuaje', name: 'idk'},
+  // {brand: 'Te Amo'},
+  // {brand: 'Torano', name: 'Exodus 1958'},
+  // {brand: 'Vegafina'}];
   //arrays for sizes and gauges
   vm.cigarData.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3},
     {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5}, {number: 5.6},
@@ -81,6 +81,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
     return $http.get('/humidor').then(function(response) {
       // response.send(vm.cigarData);
       console.log(vm.cigarData);
+
     }, function(err) {
       console.log('Error getting cigarData', err);
       response.sendStatus(500);
@@ -112,10 +113,6 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
     });
   };
 
-  //do i need this?
-  function cigarDataTest(){
-    return vm.cigarData;
-  }
 
   return {
     getCigars: getCigars,
@@ -139,11 +136,11 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
     };
 }]).filter('fillerFilter', ['CigarService', function(CigarService) {
     return function(fillerAll, cigarsFillers) {
-      console.log('1', cigarsFillers.filler);
+      // console.log('1', cigarsFillers.filler);
       if(cigarsFillers == '' | cigarsFillers == null){
         return fillerAll;
       }
-      console.log('2', fillerAll);
+      // console.log('2', fillerAll);
       // var filler = {};
       var fillerList = [];
       // for(var i = 0; i < fillerAll.length; i++){
@@ -155,13 +152,13 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
       // }
       angular.forEach(cigarsFillers.filler, function(filler){
         for(var i = 0; i < fillerAll.length; i++){
-          console.log(i);
+          // console.log(i);
           if(filler == fillerAll[i].country){
             fillerList.push(fillerAll[i]);
           }
         }
       })
-      console.log(fillerList);
+      // console.log(fillerList);
       return fillerList;
     };
 }]);
