@@ -15,10 +15,13 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
     controller: 'HumidorController',
     controllerAs: 'humidor',
     resolve: {
+      arrays: function(CigarService){
+        return CigarService.getArrays();
+      },
       cigars: function(CigarService){
         return CigarService.getCigars();
+      }
     }
-  }
   })
   .when('/humidor/addACigar', {
     templateUrl: '/views/addACigar.html',

@@ -3,7 +3,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
 
   //cigarData from CigarService to populate data/form
   vm.cigarData = CigarService.cigarData;
-  // console.log('cigarData', vm.cigarData);
+  vm.cigarArrays = CigarService.cigarArrays;
 
   // //arrays for sizes and gauges
   // vm.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3}, {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5},

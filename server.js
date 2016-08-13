@@ -50,6 +50,10 @@ app.use('/api', function(request, response, next){
   }
 });
 
+app.use('/*', function(request, response, next){
+  response.sendFile(path.join(__dirname, '../public/views/index.html'));
+});
+
 // app.get('/', function(request, response){
 //   response.sendFile(path.join(__dirname, './public/views/index.html'));
 // });

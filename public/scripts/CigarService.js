@@ -1,5 +1,6 @@
 angular.module('cigarApp').factory('CigarService', ['$http', '$location', function($http, $location, CigarService) {
   var vm = this;
+  vm.cigarArrays = {};
   vm.cigarData = {};
   vm.userCigarData = {};
 
@@ -24,48 +25,49 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
   // {brand: 'Te Amo'},
   // {brand: 'Torano', name: 'Exodus 1958'},
   // {brand: 'Vegafina'}];
+
   //arrays for sizes and gauges
-  vm.cigarData.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3},
-    {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5}, {number: 5.6},
-    {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4},
-    {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
-  vm.cigarData.gauges = [{number: 18}, {number: 20}, {number: 22}, {number: 24},
-    {number: 26}, {number: 28}, {number: 30}, {number: 32}, {number: 34}, {number: 36},
-    {number: 38}, {number: 40}, {number: 42}, {number: 44}, {number: 46}, {number: 48},
-    {number: 50}, {number: 52}, {number: 54}, {number: 56}, {number: 58}, {number: 60},
-    {number: 62}, {number: 64}, {number: 66}, {number: 68}, {number: 70}, {number: 72},
-    {number: 74}, {number: 76}, {number: 78}];
-  //brand name origin filler body wrapper
-  vm.cigarData.fillerAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
-  {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
-  {country: 'Honduras'}, {country: 'Indonesia'}, {country: 'Italy'}, {country: 'Jamaica'},
-  {country: 'Mexico'}, {country: 'Ecuador'}, {country: 'Nicaragua'}, {country: 'Other'},
-  {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'}, {country: 'Puerto Rico'},
-  {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
-  vm.cigarData.wrapperColor = [{name: 'Candela(Double Claro)', description: 'very light,'
-  + ' slightly greenish. Achieved by picking leaves before maturity and drying'
-  + ' quickly, the color coming from retained green chlorophyll'},
-  {name: 'Claro', description: 'very light tan or yellowish'},
-  {name: 'Colorado Claro', description: 'medium brown'},
-  {name: 'Colorado(Rosado)', description: 'reddish-brown'},
-  {name: 'Colorado Maduro', description: 'darker brown'},
-  {name: 'Maduro', description: 'very dark brown'},
-  {name: 'Oscuro(Double Maduro)', description: 'black'},
-  {name: 'American Market Selection(AMS)', description: 'synonymous with Candela("Double Claro")'},
-  {name: 'English Market Selection(EMS)', description: 'any natural colored wrapper which is darker than Candela but lighter than Maduro'},
-  {name: 'Spanish Market Selection(SMS)', description: 'one of the two darkest colors, Maduro or Oscuro'}];
-  vm.cigarData.wrapperCountry = [{country: 'Brazil'}, {country: 'Cameroon'}, {country: 'Connecticut Broadleaf'},
-  {country: 'Connecticut Shade'}, {country: 'Costa Rica'}, {country: 'Cuba'},
-  {country: 'Dominican Republic'}, {country: 'Ecuador'}, {country: 'Honduras'},
-  {country: 'Indonesia Besuki'}, {country: 'Indonesia Sumatra'}, {country: 'Mexico'},
-  {country: 'Nicaragua'}, {country: 'Other'}];
-  vm.cigarData.originAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
-  {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
-  {country: 'Ecuador'}, {country: 'Holland'}, {country: 'Honduras'}, {country: 'Indonesia'},
-  {country: 'Italy'}, {country: 'Jamaica'}, {country: 'Mexico'}, {country: 'Nicaragua'},
-  {country: 'Other'}, {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'},
-  {country: 'Puerto Rico'}, {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
-  vm.cigarData.body = [{name: 'Mild'}, {name: 'Mild-medium'}, {name: 'Medium'}, {name: 'Medium-full'}, {name: 'Full'}];
+  // vm.cigarData.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3},
+  //   {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5}, {number: 5.6},
+  //   {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4},
+  //   {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
+  // vm.cigarData.gauges = [{number: 18}, {number: 20}, {number: 22}, {number: 24},
+  //   {number: 26}, {number: 28}, {number: 30}, {number: 32}, {number: 34}, {number: 36},
+  //   {number: 38}, {number: 40}, {number: 42}, {number: 44}, {number: 46}, {number: 48},
+  //   {number: 50}, {number: 52}, {number: 54}, {number: 56}, {number: 58}, {number: 60},
+  //   {number: 62}, {number: 64}, {number: 66}, {number: 68}, {number: 70}, {number: 72},
+  //   {number: 74}, {number: 76}, {number: 78}];
+  // //brand name origin filler body wrapper
+  // vm.cigarData.fillerAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
+  // {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
+  // {country: 'Honduras'}, {country: 'Indonesia'}, {country: 'Italy'}, {country: 'Jamaica'},
+  // {country: 'Mexico'}, {country: 'Ecuador'}, {country: 'Nicaragua'}, {country: 'Other'},
+  // {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'}, {country: 'Puerto Rico'},
+  // {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
+  // vm.cigarData.wrapperColor = [{name: 'Candela(Double Claro)', description: 'very light,'
+  // + ' slightly greenish. Achieved by picking leaves before maturity and drying'
+  // + ' quickly, the color coming from retained green chlorophyll'},
+  // {name: 'Claro', description: 'very light tan or yellowish'},
+  // {name: 'Colorado Claro', description: 'medium brown'},
+  // {name: 'Colorado(Rosado)', description: 'reddish-brown'},
+  // {name: 'Colorado Maduro', description: 'darker brown'},
+  // {name: 'Maduro', description: 'very dark brown'},
+  // {name: 'Oscuro(Double Maduro)', description: 'black'},
+  // {name: 'American Market Selection(AMS)', description: 'synonymous with Candela("Double Claro")'},
+  // {name: 'English Market Selection(EMS)', description: 'any natural colored wrapper which is darker than Candela but lighter than Maduro'},
+  // {name: 'Spanish Market Selection(SMS)', description: 'one of the two darkest colors, Maduro or Oscuro'}];
+  // vm.cigarData.wrapperCountry = [{country: 'Brazil'}, {country: 'Cameroon'}, {country: 'Connecticut Broadleaf'},
+  // {country: 'Connecticut Shade'}, {country: 'Costa Rica'}, {country: 'Cuba'},
+  // {country: 'Dominican Republic'}, {country: 'Ecuador'}, {country: 'Honduras'},
+  // {country: 'Indonesia Besuki'}, {country: 'Indonesia Sumatra'}, {country: 'Mexico'},
+  // {country: 'Nicaragua'}, {country: 'Other'}];
+  // vm.cigarData.originAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
+  // {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
+  // {country: 'Ecuador'}, {country: 'Holland'}, {country: 'Honduras'}, {country: 'Indonesia'},
+  // {country: 'Italy'}, {country: 'Jamaica'}, {country: 'Mexico'}, {country: 'Nicaragua'},
+  // {country: 'Other'}, {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'},
+  // {country: 'Puerto Rico'}, {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
+  // vm.cigarData.body = [{name: 'Mild'}, {name: 'Mild-medium'}, {name: 'Medium'}, {name: 'Medium-full'}, {name: 'Full'}];
 
 
   //  cigarData.filler = filler;
@@ -80,10 +82,21 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
   function getCigars() {
     return $http.get('/humidor').then(function(response) {
       // response.send(vm.cigarData);
+      vm.cigarData = response.data;
       console.log(vm.cigarData);
 
     }, function(err) {
       console.log('Error getting cigarData', err);
+      response.sendStatus(500);
+    });
+  };
+
+  function getArrays() {
+    return $http.get('/humidor/arrays').then(function(response) {
+      vm.cigarArrays = response.data;
+      console.log(vm.cigarArrays);
+    }, function(err){
+      console.log('error getting arrayList', err);
       response.sendStatus(500);
     });
   };
@@ -119,7 +132,9 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
     getUserCigars: getUserCigars,
     ratings: ratings,
     cigarData: vm.cigarData,
-    cigarSave: cigarSave
+    cigarArrays: vm.cigarArrays,
+    cigarSave: cigarSave,
+    getArrays: getArrays
   };
 
 }]).filter('unique', ['CigarService', function(CigarService) {
