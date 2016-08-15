@@ -1,81 +1,13 @@
-angular.module('cigarApp').factory('CigarService', ['$http', '$location', function($http, $location, CigarService) {
+angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserService', function($http, $location, UserService, CigarService) {
   var vm = this;
   vm.cigarArrays = {};
   vm.cigarData = {};
   vm.userCigarData = {};
+  vm.ratings = {};
+  vm.hygrometers = {};
 
-  //variables to help populate fields in /addACigar and /addARating for filler,
-  //wrappers(description), wrapper countries, and origin, size and gauge
-  // vm.cigarData = [{brand:'5 Vegas'},
-  // {brand:'A.J. Fernandez'},
-  // {brand:'AVO', name: 'Bleh', origin: 'Dominican Republic', wrapperColor: 'Maduro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Costa Rica', 'Cameroon']},
-  // {brand:'AVO', name: 'test', origin: 'Cuba', wrapperColor: 'Claro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Cuba', 'Jamaica']},
-  // {brand:'AVO', name: '1234', origin: '', wrapperColor: '', wrapperCountry: 'Mexico', body: 'Mild-medium', filler: ['Costa Rica', 'Cameroon']},
-  // {brand:'AVO', name: 'jfjfjjfjf', origin: '', wrapperColor: '', wrapperCountry: '', body: 'Full', filler: ['Philippines', 'Nicaragua']},
-  // {brand:'AVO', name: 'fds', origin: '', wrapperColor: 'Maduro', wrapperCountry: 'Brazil', body: '', filler: ['Dominican Republic', 'Mexico']},
-  // {brand:'AVO', name: 'whynot', filler: []},
-  // {brand:'Acid', name: 'test'},
-  // {brand:'Aging Room', name: 'other'},
-  // {brand:'Alec Bradley'},
-  // {brand:'El Aroma'},
-  // {brand:'El Aroma de Cuba'},
-  // {brand: 'other', name: 'other'},
-  // {brand:'Tatiana'},
-  // {brand:'Tatuaje', name: 'idk'},
-  // {brand: 'Te Amo'},
-  // {brand: 'Torano', name: 'Exodus 1958'},
-  // {brand: 'Vegafina'}];
-
-  //arrays for sizes and gauges
-  // vm.cigarData.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3},
-  //   {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5}, {number: 5.6},
-  //   {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4},
-  //   {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
-  // vm.cigarData.gauges = [{number: 18}, {number: 20}, {number: 22}, {number: 24},
-  //   {number: 26}, {number: 28}, {number: 30}, {number: 32}, {number: 34}, {number: 36},
-  //   {number: 38}, {number: 40}, {number: 42}, {number: 44}, {number: 46}, {number: 48},
-  //   {number: 50}, {number: 52}, {number: 54}, {number: 56}, {number: 58}, {number: 60},
-  //   {number: 62}, {number: 64}, {number: 66}, {number: 68}, {number: 70}, {number: 72},
-  //   {number: 74}, {number: 76}, {number: 78}];
-  // //brand name origin filler body wrapper
-  // vm.cigarData.fillerAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
-  // {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
-  // {country: 'Honduras'}, {country: 'Indonesia'}, {country: 'Italy'}, {country: 'Jamaica'},
-  // {country: 'Mexico'}, {country: 'Ecuador'}, {country: 'Nicaragua'}, {country: 'Other'},
-  // {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'}, {country: 'Puerto Rico'},
-  // {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
-  // vm.cigarData.wrapperColor = [{name: 'Candela(Double Claro)', description: 'very light,'
-  // + ' slightly greenish. Achieved by picking leaves before maturity and drying'
-  // + ' quickly, the color coming from retained green chlorophyll'},
-  // {name: 'Claro', description: 'very light tan or yellowish'},
-  // {name: 'Colorado Claro', description: 'medium brown'},
-  // {name: 'Colorado(Rosado)', description: 'reddish-brown'},
-  // {name: 'Colorado Maduro', description: 'darker brown'},
-  // {name: 'Maduro', description: 'very dark brown'},
-  // {name: 'Oscuro(Double Maduro)', description: 'black'},
-  // {name: 'American Market Selection(AMS)', description: 'synonymous with Candela("Double Claro")'},
-  // {name: 'English Market Selection(EMS)', description: 'any natural colored wrapper which is darker than Candela but lighter than Maduro'},
-  // {name: 'Spanish Market Selection(SMS)', description: 'one of the two darkest colors, Maduro or Oscuro'}];
-  // vm.cigarData.wrapperCountry = [{country: 'Brazil'}, {country: 'Cameroon'}, {country: 'Connecticut Broadleaf'},
-  // {country: 'Connecticut Shade'}, {country: 'Costa Rica'}, {country: 'Cuba'},
-  // {country: 'Dominican Republic'}, {country: 'Ecuador'}, {country: 'Honduras'},
-  // {country: 'Indonesia Besuki'}, {country: 'Indonesia Sumatra'}, {country: 'Mexico'},
-  // {country: 'Nicaragua'}, {country: 'Other'}];
-  // vm.cigarData.originAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
-  // {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
-  // {country: 'Ecuador'}, {country: 'Holland'}, {country: 'Honduras'}, {country: 'Indonesia'},
-  // {country: 'Italy'}, {country: 'Jamaica'}, {country: 'Mexico'}, {country: 'Nicaragua'},
-  // {country: 'Other'}, {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'},
-  // {country: 'Puerto Rico'}, {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
-  // vm.cigarData.body = [{name: 'Mild'}, {name: 'Mild-medium'}, {name: 'Medium'}, {name: 'Medium-full'}, {name: 'Full'}];
-
-
-  //  cigarData.filler = filler;
-  //  cigarData.wrapperColor = wrapperColor;
-  //  cigarData.wrapperCountry = wrapperCountry;
-  //  cigarData.origin = origin;
-  //  cigarData.sizes = sizes;
-  //  cigarData.gauges = gauges;
+  vm.user = UserService.getUser();
+  console.log(vm.user);
 
   //function to save the cigar table from database in order to populate the
   //forms and lists
@@ -83,7 +15,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
     return $http.get('/humidor').then(function(response) {
       // response.send(vm.cigarData);
       vm.cigarData = response.data;
-      console.log(vm.cigarData);
+      console.log('cigarData', vm.cigarData);
 
     }, function(err) {
       console.log('Error getting cigarData', err);
@@ -94,7 +26,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
   function getArrays() {
     return $http.get('/humidor/arrays').then(function(response) {
       vm.cigarArrays = response.data;
-      console.log(vm.cigarArrays);
+      console.log('cigarArrays', vm.cigarArrays);
     }, function(err){
       console.log('error getting arrayList', err);
       response.sendStatus(500);
@@ -102,9 +34,10 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
   };
 
   //function to save the ratings table form the db to populate ratings list
-  function ratings() {
+  function getRatings() {
     return $http.get('/ratings').then(function(response) {
-      console.log('routing to /ratings');
+      vm.ratings = response.data;
+      console.log('routing to /ratings', vm.ratings);
     }, function(respnse) {
       console.log('error routing to /ratings', response);
       response.sendStatus(500);
@@ -113,7 +46,33 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
 
   //function to save userCigarData in order to populate the cigar list(humidor)
   function getUserCigars() {
-    return;
+    return $http.get('/humidor/userCigars').then(function(response) {
+      vm.userCigarData = response.data;
+      console.log('userCigarData to /userCigars', vm.userCigarData);
+    }, function(response) {
+      console.log('error routing to /userCigars', response);
+      response.sendStatus(500);
+    });
+  };
+
+  function getHygrometers(){
+    return $http.get('/hygrometer').then(function(response) {
+      vm.hygrometers = response.data;
+      console.log('hygrometers, to /hygrometer', vm.hygrometers);
+    }, function(response) {
+      console.log('error routing to /hygrometer', response);
+      response.sendStatus(500);
+    });
+  };
+
+  function hygrometerSave(sendData){
+    return $http.post('/hygrometer/addAHygrometer', sendData).then(function(response){
+      console.log('success adding a hygro', response);
+      $location.path('/hygrometer');
+    }, function(err){
+      console.log('err adding a hygro', err);
+      response.sendStatus(500);
+    });
   };
 
   function cigarSave(sendData){
@@ -126,15 +85,94 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', functi
     });
   };
 
+  function addToBrand(sendData){
+    return $http.post('/humidor/addToBrand', sendData).then(function(response){
+      console.log('success adding to a cigar', response);
+      $location.path('/humidor')
+      }, function(err){
+        console.log('err adding first cigar to db', err);
+        response.sendStatus(500);
+      });
+
+  };
+
+  function addToCigars(sendData){
+    return $http.post('/humidor/addToCigars', sendData).then(function(response){
+      console.log('success adding to cigars and to users_cigars', response);
+      $location.path('/humidor');
+    }, function(err){
+      console.log('err adding to cigars and to users_cigars', err);
+      response.sendStatus(500);
+    });
+  };
+
+  function addToUserCigars(sendData){
+    return $http.post('/humidor/addToUserCigars', sendData).then(function(response){
+      console.log('success adding to users_cigars', response);
+      $location.path('/humidor');
+    }, function(err){
+      console.log('err adding to users_cigars', err);
+      response.sendStatus(500);
+    });
+  };
+
+  function ratingSave(sendData){
+    // vm.user = UserService.getUser();
+    return $http.post('/ratings/addARating', sendData).then(function(response){
+      console.log('success adding a rating', response);
+      $location.path('/ratings');
+    }, function(err){
+      console.log('err adding a rating', err);
+      response.sendStatus(500);
+    });
+  };
+
+  function remove(id){
+    return $http.delete('/humidor/remove/:' + id).then(function(response){
+      console.log(response);
+      $location.path('/humidor');
+    }, function(response){
+      console.log(response);
+    });
+  };
+
+  function cigarData(){
+    return vm.cigarData;
+  };
+
+  function cigarArrays(){
+    return vm.cigarArrays;
+  };
+
+  function userCigarData(){
+    return vm.userCigarData;
+  }
+
+  function ratings(){
+    return vm.ratings;
+  }
+
+  function hygrometers(){
+    return vm.hygrometers;
+  };
+
 
   return {
     getCigars: getCigars,
     getUserCigars: getUserCigars,
-    ratings: ratings,
-    cigarData: vm.cigarData,
-    cigarArrays: vm.cigarArrays,
+    getRatings: getRatings,
+    getArrays: getArrays,
+    getHygrometers: getHygrometers,
+    cigarData: cigarData,
+    cigarArrays: cigarArrays,
+    userCigarData: userCigarData,
     cigarSave: cigarSave,
-    getArrays: getArrays
+    ratingSave: ratingSave,
+    hygrometerSave: hygrometerSave,
+    ratings: ratings,
+    hygrometers: hygrometers,
+    remove: remove
+
   };
 
 }]).filter('unique', ['CigarService', function(CigarService) {

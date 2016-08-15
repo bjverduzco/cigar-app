@@ -1,3 +1,48 @@
+<div id="nav bar">
+  <!-- button vs href looking like a button -->
+  <button ng-click="hygrometer.humidor()">Humidor List</button>
+  <!-- <a href="/humidor">Humidor List</a> -->
+  <button ng-click="hygrometer.ratings()">Ratings List</button>
+  <!-- <a href="/ratings">Ratings List</a> -->
+  <button ng-click="hygrometer.hygrometer()">Hygrometer List</button>
+  <!-- <a href="/hygrometer">Hygrometer List</a> -->
+  <button ng-click="hygrometer.addACigar()">Add a Cigar</button>
+  <!-- <a href="/humidor/addACigar">Add a Cigar</a> -->
+  <button ng-click="hygrometer.addARating()">Add a Rating</button>
+  <!-- <a href="/ratings/addARating">Add a Rating</a> -->
+  <button ng-click="hygrometer.addAHygrometer()">Add a Hygrometer</button>
+  <!-- <a href="/hygrometer/addAHygrometer">Add a Hygrometer</a> -->
+  <br />
+  <br />
+</div>
 <h2>Hygrometer:</h2>
-
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Min Temp</th>
+      <th>Max Temp</th>
+      <th>Min Humidity</th>
+      <th>Max Humidity</th>
+      <th>Location</th>
+      <th>Display</th>
+    </tr>
+  </thead>
+  <tbody ng-repeat="hygro in hygrometer.hygrometers track by $index">
+    <tr>
+      <td>{{hygro.name}}</td>
+      <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_min"/></td>
+      <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_max"/></td>
+      <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_min"/></td>
+      <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_max"/></td>
+      <td><span ng-show="hygrometer.edit.more">{{hygro.location}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.location"/></td>
+      <td><span>{{hygrometer.display}}</td>
+        <td><button ng-show="hygrometer.edit.more" ng-click="hygrometer.editHygrometers()">Edit</button></td>
+        <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.saveHygrometers()">Save</button></td>
+        <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.editHygrometers()">Cancel</button></td>
+      <td><button ng-click="hygrometer.remove()">Remove</button></td>
+    </tr>
+  </tbody>
+</table>
+<br />
 <button ng-click="hygrometer.addAHygrometer()">Add a Hygrometer</button>

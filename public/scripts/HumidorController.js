@@ -2,63 +2,10 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
   var vm = this;
 
   //cigarData from CigarService to populate data/form
-  vm.cigarData = CigarService.cigarData;
-  vm.cigarArrays = CigarService.cigarArrays;
-
-  // //arrays for sizes and gauges
-  // vm.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3}, {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5},
-  //   {number: 5.6}, {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4}, {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
-  // vm.gauges = [{number: 18}, {number: 20}, {number: 22}, {number: 24}, {number: 26}, {number: 28}, {number: 30}, {number: 32}, {number: 34}, {number: 36}, {number: 38}, {number: 40}, {number: 42}, {number: 44}, {number: 46}, {number: 48}, {number: 50}, {number: 52}, {number: 54}, {number: 56}, {number: 58}, {number: 60}, {number: 62}, {number: 64}, {number: 66}, {number: 68}, {number: 70}, {number: 72}, {number: 74}, {number: 76}, {number: 78}];
-  // vm.cigarData = [{brand:'5 Vegas'},
-  // {brand:'A.J. Fernandez'},
-  // {brand:'AVO', name: 'Bleh', origin: 'Dominican Republic', wrapperColor: 'Maduro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Costa Rica', 'Cameroon']},
-  // {brand:'AVO', name: 'test', origin: 'Cuba', wrapperColor: 'Claro', wrapperCountry: 'Indonesia Sumatra', body: 'Mild', filler: ['Cuba', 'Jamaica']},
-  // {brand:'AVO', name: '1234', origin: '', wrapperColor: '', wrapperCountry: 'Mexico', body: 'Mild-medium', filler: ['Costa Rica', 'Cameroon']},
-  // {brand:'AVO', name: 'jfjfjjfjf', origin: '', wrapperColor: '', wrapperCountry: '', body: 'Full', filler: ['Philippines', 'Nicaragua']},
-  // {brand:'AVO', name: 'fds', origin: '', wrapperColor: 'Maduro', wrapperCountry: 'Brazil', body: '', filler: ['Dominican Republic', 'Mexico']},
-  // {brand:'AVO', name: 'whynot', filler: []},
-  // {brand:'Acid', name: 'test'},
-  // {brand:'Aging Room', name: 'other'},
-  // {brand:'Alec Bradley'},
-  // {brand:'El Aroma'},
-  // {brand:'El Aroma de Cuba'},
-  // {brand: 'other', name: 'other'},
-  // {brand:'Tatiana'},
-  // {brand:'Tatuaje', name: 'idk'},
-  // {brand: 'Te Amo'},
-  // {brand: 'Torano', name: 'Exodus 1958'},
-  // {brand: 'Vegafina'}];
-  // //brand name origin filler body wrapper
-  // vm.cigarData.fillerAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
-  // {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
-  // {country: 'Honduras'}, {country: 'Indonesia'}, {country: 'Italy'}, {country: 'Jamaica'},
-  // {country: 'Mexico'}, {country: 'Ecuador'}, {country: 'Nicaragua'}, {country: 'Other'},
-  // {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'}, {country: 'Puerto Rico'},
-  // {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
-  // vm.cigarData.wrapperColor = [{name: 'Candela(Double Claro)', description: 'very light,'
-  // + ' slightly greenish. Achieved by picking leaves before maturity and drying'
-  // + ' quickly, the color coming from retained green chlorophyll'},
-  // {name: 'Claro', description: 'very light tan or yellowish'},
-  // {name: 'Colorado Claro', description: 'medium brown'},
-  // {name: 'Colorado(Rosado)', description: 'reddish-brown'},
-  // {name: 'Colorado Maduro', description: 'darker brown'},
-  // {name: 'Maduro', description: 'very dark brown'},
-  // {name: 'Oscuro(Double Maduro)', description: 'black'},
-  // {name: 'American Market Selection(AMS)', description: 'synonymous with Candela("Double Claro")'},
-  // {name: 'English Market Selection(EMS)', description: 'any natural colored wrapper which is darker than Candela but lighter than Maduro'},
-  // {name: 'Spanish Market Selection(SMS)', description: 'one of the two darkest colors, Maduro or Oscuro'}];
-  // vm.cigarData.wrapperCountry = [{country: 'Brazil'}, {country: 'Cameroon'}, {country: 'Connecticut Broadleaf'},
-  // {country: 'Connecticut Shade'}, {country: 'Costa Rica'}, {country: 'Cuba'},
-  // {country: 'Dominican Republic'}, {country: 'Ecuador'}, {country: 'Honduras'},
-  // {country: 'Indonesia Besuki'}, {country: 'Indonesia Sumatra'}, {country: 'Mexico'},
-  // {country: 'Nicaragua'}, {country: 'Other'}];
-  // vm.cigarData.originAll = [{country: 'Brazil'}, {country: 'Barbados'}, {country: 'Cameroon'},
-  // {country: 'Costa Rica'}, {country: 'Cuba'}, {country: 'Dominican Republic'},
-  // {country: 'Ecuador'}, {country: 'Holland'}, {country: 'Honduras'}, {country: 'Indonesia'},
-  // {country: 'Italy'}, {country: 'Jamaica'}, {country: 'Mexico'}, {country: 'Nicaragua'},
-  // {country: 'Other'}, {country: 'Panama'}, {country: 'Peru'}, {country: 'Philippines'},
-  // {country: 'Puerto Rico'}, {country: 'Canary Islands(Spain)'}, {country: 'United States'}];
-  // vm.cigarData.body = [{name: 'Mild'}, {name: 'Mild-medium'}, {name: 'Medium'}, {name: 'Medium-full'}, {name: 'Full'}];
+  vm.cigarData = CigarService.cigarData();
+  vm.cigarArrays = CigarService.cigarArrays();
+  vm.userCigarData = CigarService.userCigarData();
+  // console.log(vm.userCigarData);
 
   //variables for form data
   //and cash money bc why not?
@@ -123,55 +70,58 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       if(vm.name.name !== 'other'){
         vm.edit.name = true;
         vm.required.secondaryName = true;
-        vm.wrapperColor = vm.name.wrapperColor;
-        for(var i = 0; i < vm.cigarData.originAll.length; i++){
-          if(vm.name.origin == vm.cigarData.originAll[i].country){
-            vm.origin = vm.cigarData.originAll[i];
-          }
-          else if(vm.name.origin == '' | vm.name.origin == null){
-            vm.origin = '';
-          }
-        }
-        for(var i = 0; i < vm.cigarData.wrapperColor.length; i++){
-          if(vm.name.wrapperColor == vm.cigarData.wrapperColor[i].name){
-            vm.wrapperColor = vm.cigarData.wrapperColor[i];
-          }
-          else if(vm.name.wrapperColor == '' | vm.name.wrapperColor == null){
-            vm.wrapperColor = '';
-          }
-        }
-        for(var i = 0; i < vm.cigarData.wrapperCountry.length; i++){
-          if(vm.name.wrapperCountry == vm.cigarData.wrapperCountry[i].country){
-            vm.wrapperCountry = vm.cigarData.wrapperCountry[i];
-          }
-          else if(vm.name.wrapperCountry == '' | vm.name.wrapperCountry == null){
-            vm.wrapperCountry = '';
-          }
-        }
-        vm.filler = [];
-        //doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        for(var i = 0; i < vm.name.filler.length; i++){
-          if(vm.name.filler !== '' | vm.name.filler !== null){
-            for(var j = 0; j < vm.cigarData.fillerAll.length; j++){
-              if(vm.name.filler[i] == vm.cigarData.fillerAll[j].country){
-                vm.filler.push(vm.cigarData.fillerAll[j]);
-                console.log(vm.filler);
-              }
-            }
-          }
-          else {
-            vm.filler = '';
-          }
-        }
-        for(var i = 0; i < vm.cigarData.body.length; i++){
-          if(vm.name.body == vm.cigarData.body[i].name){
-            vm.body = vm.cigarData.body[i];
-          }
-          else if(vm.name.body == '' | vm.name.body == null){
-            vm.body = '';
-          }
-        }
+        // vm.wrapperColor = vm.name.wrapper_color;
+        prefill();
+      }
+    }
+  };
 
+  function prefill(){
+    for(var i = 0; i < vm.cigarArrays.length; i++){
+      if(vm.name.origin_country == vm.cigarArrays[i].origin_country){
+        vm.origin = vm.cigarArrays[i];
+      }
+      else if(vm.name.origin_country == '' | vm.name.origin_country == null){
+        vm.origin = '';
+      }
+    }
+    for(var i = 0; i < vm.cigarArrays.length; i++){
+      if(vm.name.wrapper_color_name == vm.cigarArrays[i].wrapper_color_name){
+        vm.wrapperColor = vm.cigarArrays[i];
+      }
+      else if(vm.name.wrapper_color_name == '' | vm.name.wrapper_color_name == null){
+        vm.wrapperColor = '';
+      }
+    }
+    for(var i = 0; i < vm.cigarArrays.length; i++){
+      if(vm.name.wrapper_country == vm.cigarArrays[i].wrapper_country){
+        vm.wrapperCountry = vm.cigarArrays[i];
+      }
+      else if(vm.name.wrapper_country == '' | vm.name.wrapper_country == null){
+        vm.wrapperCountry = '';
+      }
+    }
+    for(var i = 0; i < vm.cigarArrays.length; i++){
+      if(vm.name.body == vm.cigarArrays[i].body){
+        vm.body = vm.cigarArrays[i];
+      }
+      else if(vm.name.body == '' | vm.name.body == null){
+        vm.body = '';
+      }
+    }
+    vm.filler = [];
+    //doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for(var i = 0; i < vm.name.filler_country.length; i++){
+      if(vm.name.filler !== '' | vm.name.filler !== null){
+        for(var j = 0; j < vm.cigarArrays.length; j++){
+          if(vm.name.filler_country[i] == vm.cigarArrays[j].filler_country){
+            vm.filler.push(vm.cigarArrays[j]);
+            console.log(vm.filler);
+          }
+        }
+      }
+      else {
+        vm.filler = '';
       }
     }
   };
@@ -218,7 +168,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     // had the first if as an or with | vm.newBrand === '' | but i think this is
     //the proper way for validation that i want
     if(vm.brand !== 'other'){
-      sendData.brand = vm.brand.brand;
+      sendData.brand = vm.brand;
     }
     else if(vm.brand === 'other' || vm.newBrand === ''){
       return alert('Please fill out all of the required fields.');
@@ -232,7 +182,10 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     // had the first if as an or with | vm.newName === '' | but i think this is
     // the proper way for validation that i want
     if(vm.name !== 'other'){
-      sendData.name = vm.name.name;
+      sendData.name = vm.name;
+    }
+    else if(vm.name === 'other' || vm.newName === ''){
+      return alert('Please fill out all of the required fields.')
     }
     else{
       sendData.name = vm.newName;
@@ -240,10 +193,10 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
 
     //saving the form data into sendData obj to be passed
     sendData.date = vm.date;
-    sendData.picUpload = vm.picUpload;
+    // sendData.picUpload = vm.picUpload;
     sendData.quantity = vm.quantity;
     sendData.size = vm.size.number;
-    sendData.gauge = vm.gauge.number;
+    sendData.gauge = vm.gauge;
     sendData.origin = vm.origin;
     sendData.wrapperColor = vm.wrapperColor;
     sendData.wrapperCountry = vm.wrapperCountry;
@@ -261,7 +214,30 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     // }, function(err){
     //   console.log('Failure adding cigar', err);
     // });
-    CigarService.cigarSave(sendData).then(handleSuccess, handleFailure);
+
+    //case 1 add cigar to db and and brand + name = 'other' to db, then add to
+    //users_cigars
+    if(vm.brand.brand == 'other'){
+      CigarService.addToBrand(sendData).then(handleSuccess, handleFailure);
+    }
+
+    //case 2 add to cigar to db and then add to users_cigars
+    if(vm.name.name == 'other'){
+      CigarService.addToCigars(sendData).then(handleSuccess, handleFailure);
+    }
+
+    //case 3 just add to users_cigars
+    if(sendData.name.origin_country == sendData.origin.origin_country ||
+    sendData.name.wrapper_color == sendData.wrapperColor.wrapper_color_name ||
+    sendData.name.wrapper_country == sendData.wrapperCountry.wrapper_country ||
+    // this is where filler check would go
+    sendData.name.body == sendData.body.body){
+      CigarService.addToUserCigars(sendData).then(handleSuccess, handleFailure);
+    }
+    //case 4 update cigars db and then add to users_cigars
+    else {
+      CigarService.cigarSave(sendData).then(handleSuccess, handleFailure);
+    }
   };
 
   function handleSuccess(response){
@@ -276,5 +252,54 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
   //form cancel function routing to /humidor
   vm.cancel = function(){
     $location.path('/humidor');
+  };
+
+  vm.editCigars = function(){
+    vm.edit.more = !vm.edit.more;
+    vm.edit.less = !vm.edit.less;
+  };
+
+  vm.remove = function(){
+    console.log('totally removed');
+  };
+
+  //nav bar button functions to route to correct pages
+  //route to /humidor
+  vm.humidor = function() {
+    $location.path('/humidor');
+  };
+
+  //route to /ratings
+  vm.ratings = function() {
+  $location.path('/ratings');
+  };
+
+  //route to /hygrometer
+  vm.hygrometer = function() {
+    $location.path('/hygrometer');
+  };
+
+  //route to /humidor/addACigar
+  vm.addACigar = function() {
+    $location.path('/humidor/addACigar');
+  };
+
+  //route to /ratings/addARating
+  vm.addARating = function() {
+    $location.path('/ratings/addARating');
+  };
+
+  //route to /hygromter/addAHygrometer
+  vm.addAHygrometer = function() {
+    $location.path('/hygrometer/addAHygrometer');
+  };
+
+  vm.remove = function(index) {
+    CigarService.remove(index).then(function(response){
+      console.log('success removing cigar.');
+      $location.path('/humidor');
+    }, function(response){
+      console.log('err removing cigar', response);
+    });
   };
 }]);

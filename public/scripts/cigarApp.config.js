@@ -18,6 +18,9 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
       arrays: function(CigarService){
         return CigarService.getArrays();
       },
+      userCigars: function(CigarService){
+        return CigarService.getUserCigars();
+      },
       cigars: function(CigarService){
         return CigarService.getCigars();
       }
@@ -31,7 +34,12 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
   .when('/ratings', {
     templateUrl: '/views/ratings.html',
     controller: 'RatingsController',
-    controllerAs: 'ratings'
+    controllerAs: 'ratings',
+    resolve: {
+      userRatings: function(CigarService){
+        return CigarService.getRatings();
+      }
+    }
   })
   .when('/ratings/addARating', {
     templateUrl: '/views/addARating.html',
@@ -41,7 +49,12 @@ angular.module('cigarApp').config(['$routeProvider', '$locationProvider', functi
   .when('/hygrometer', {
     templateUrl: '/views/hygrometer.html',
     controller: 'HygrometerController',
-    controllerAs: 'hygrometer'
+    controllerAs: 'hygrometer',
+    resolve: {
+      userHygrometers: function(CigarService){
+        return CigarService.getHygrometers();
+      }
+    }
   })
   .when('/hygrometer/addAHygrometer', {
     templateUrl: '/views/addAHygrometer.html',

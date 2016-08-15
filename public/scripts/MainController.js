@@ -1,5 +1,6 @@
 angular.module('cigarApp').controller('MainController', ['$http', '$location', function($http, $location){
   var vm = this;
+  
 
   //nav bar button functions to route to correct pages
   //route to /humidor

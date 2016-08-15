@@ -2,7 +2,10 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
   var vm = this;
 
   //cigarData from CigarService to populate data/form
-  vm.cigarData = CigarService.cigarData;
+  vm.cigarData = CigarService.cigarData();
+  vm.cigarArrays = CigarService.cigarArrays();
+  vm.rates = CigarService.ratings();
+  console.log(vm.ratings);
 
   //arrays for sizes and gauges dropdown fields
   // vm.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3}, {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5}, {number: 5.6}, {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4}, {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
@@ -68,37 +71,46 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
       if(vm.name.name !== 'other'){
         vm.edit.name = true;
         vm.required.secondaryName = true;
-        vm.wrapperColor = vm.name.wrapperColor;
-        for(var i = 0; i < vm.cigarData.originAll.length; i++){
-          if(vm.name.origin == vm.cigarData.originAll[i].country){
-            vm.origin = vm.cigarData.originAll[i].country;
+        // vm.wrapperColor = vm.name.wrapperColor;
+        for(var i = 0; i < vm.cigarArrays.length; i++){
+          if(vm.name.origin_country == vm.cigarArrays[i].origin_country){
+            vm.origin = vm.cigarArrays[i];
           }
-          else if(vm.name.origin == '' | vm.name.origin == null){
+          else if(vm.name.origin_country == '' | vm.name.origin_country == null){
             vm.origin = '';
           }
         }
-        for(var i = 0; i < vm.cigarData.wrapperColor.length; i++){
-          if(vm.name.wrapperColor == vm.cigarData.wrapperColor[i].name){
-            vm.wrapperColor = vm.cigarData.wrapperColor[i];
+        for(var i = 0; i < vm.cigarArrays.length; i++){
+          if(vm.name.wrapper_color_name == vm.cigarArrays[i].wrapper_color_name){
+            vm.wrapperColor = vm.cigarArrays[i];
           }
-          else if(vm.name.wrapperColor == '' | vm.name.wrapperColor == null){
+          else if(vm.name.wrapper_color_name == '' | vm.name.wrapper_color_name == null){
             vm.wrapperColor = '';
           }
         }
-        for(var i = 0; i < vm.cigarData.wrapperCountry.length; i++){
-          if(vm.name.wrapperCountry == vm.cigarData.wrapperCountry[i].country){
-            vm.wrapperCountry = vm.cigarData.wrapperCountry[i];
+        for(var i = 0; i < vm.cigarArrays.length; i++){
+          if(vm.name.wrapper_country == vm.cigarArrays[i].wrapper_country){
+            vm.wrapperCountry = vm.cigarArrays[i];
           }
-          else if(vm.name.wrapperCountry == '' | vm.name.wrapperCountry == null){
+          else if(vm.name.wrapper_country == '' | vm.name.wrapper_country == null){
             vm.wrapperCountry = '';
           }
         }
+        for(var i = 0; i < vm.cigarArrays.length; i++){
+          if(vm.name.body == vm.cigarArrays[i].body){
+            vm.body = vm.cigarArrays[i];
+          }
+          else if(vm.name.body == '' | vm.name.body == null){
+            vm.body = '';
+          }
+        }
         vm.filler = [];
-        for(var i = 0; i < vm.name.filler.length; i++){
-          if(vm.name.filler != '' | vm.name.filler !== null){
-            for(var j = 0; j < vm.cigarData.fillerAll.length; j++){
-              if(vm.name.filler[i] == vm.cigarData.fillerAll[j].country){
-                vm.filler.push(vm.cigarData.fillerAll[j]);
+        //doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        for(var i = 0; i < vm.name.filler_country.length; i++){
+          if(vm.name.filler !== '' | vm.name.filler !== null){
+            for(var j = 0; j < vm.cigarArrays.length; j++){
+              if(vm.name.filler_country[i] == vm.cigarArrays[j].filler_country){
+                vm.filler.push(vm.cigarArrays[j]);
                 console.log(vm.filler);
               }
             }
@@ -107,20 +119,9 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
             vm.filler = '';
           }
         }
-        for(var i = 0; i < vm.cigarData.body.length; i++){
-          if(vm.name.body == vm.cigarData.body[i].name){
-            vm.body = vm.cigarData.body[i];
-          }
-          else if(vm.name.body == '' | vm.name.body == null){
-            vm.body = '';
-          }
-        }
-
       }
-
     }
   };
-
   //route to /ratings/addARating form form ratings list
   vm.addARating = function(){
     $location.path('/ratings/addARating');
@@ -144,20 +145,33 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
   vm.save = function(){
     var sendData = {};
     console.log('clicked');
+    if(vm.date instanceof Date !== true | vm.rating < 1 | vm.rating === ''){
+      return alert('Please fill out all of the required fields.');
+    }
 
-    //if brand dropdown option other is chosen, newBrand becomes required field
+    //if brand dropdown option other is chosen, newBrand becomes a required field
     //making newBrand the data that needs to be added to the db
-    if(vm.newBrand === ''){
+    // had the first if as an or with | vm.newBrand === '' | but i think this is
+    //the proper way for validation that i want
+    if(vm.brand !== 'other'){
       sendData.brand = vm.brand;
+    }
+    else if(vm.brand === 'other' || vm.newBrand === ''){
+      return alert('Please fill out all of the required fields.');
     }
     else{
       sendData.brand = vm.newBrand;
     }
 
     //if name dropdown option other is chosen, newName becomes a required field
-    //making newName the datat that needs to be added to the db
-    if(vm.newName === ''){
+    //making newName the data that needs to be added to the db
+    // had the first if as an or with | vm.newName === '' | but i think this is
+    // the proper way for validation that i want
+    if(vm.name !== 'other'){
       sendData.name = vm.name;
+    }
+    else if(vm.name === 'other' || vm.newName === ''){
+      return alert('Please fill out all of the required fields.')
     }
     else{
       sendData.name = vm.newName;
@@ -165,30 +179,86 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
 
     //saving the rest of the form data into the sendData obj to be passed
     sendData.date = vm.date;
-    sendData.picUpload = vm.picUpload;
+    // sendData.picUpload = vm.picUpload;
     sendData.rating = vm.rating;
+    sendData.date = vm.date;
     sendData.size = vm.size;
     sendData.gauge = vm.gauge;
     sendData.origin = vm.orgin;
+    sendData.wrapperColor = vm.wrapperColor;
+    sendData.wrapperCountry = vm.wrapperCountry;
     sendData.filler = vm.filler;
     sendData.body = vm.body;
+    sendData.taste = vm.taste;
+    sendData.draw = vm.draw;
     sendData.condition = vm.condition;
+    sendData.pairing = vm.pairing;
     sendData.comments = vm.comments;
 
     console.log(sendData);
 
+    CigarService.ratingSave(sendData).then(handleSuccess, handleFailure);
     //posting the data to the db and routing if successful to /ratings
-    $http.post('/ratings/addARating', sendData).then(function(response){
-      console.log('success adding rating', response);
-      $location.path('/ratings');
-    }, function(err){
-      console.log('Failure adding rating', err);
-    });
+    // $http.post('/ratings/addARating', sendData).then(function(response){
+    //   console.log('success adding rating', response);
+    //   $location.path('/ratings');
+    // }, function(err){
+    //   console.log('Failure adding rating', err);
+    // });
 
   };
+
+  function handleSuccess(response){
+    console.log('success navigating to addARating', response);
+    $location.path('/ratings');
+  }
+
+  function handleFailure(err){
+    console.log('Couldnt navigate to ratings', err);
+  }
 
   //function for /addARating to be able to cancel and route to /ratings
   vm.cancel = function(){
     $location.path('/ratings');
+  };
+
+  vm.editCigars = function(){
+    vm.edit.more = !vm.edit.more;
+    vm.edit.less = !vm.edit.less;
+  };
+
+  vm.remove = function(){
+    console.log('totally removed');
+  };
+
+  //nav bar button functions to route to correct pages
+  //route to /humidor
+  vm.humidor = function() {
+    $location.path('/humidor');
+  };
+
+  //route to /ratings
+  vm.ratings = function() {
+  $location.path('/ratings');
+  };
+
+  //route to /hygrometer
+  vm.hygrometer = function() {
+    $location.path('/hygrometer');
+  };
+
+  //route to /humidor/addACigar
+  vm.addACigar = function() {
+    $location.path('/humidor/addACigar');
+  };
+
+  //route to /ratings/addARating
+  vm.addARating = function() {
+    $location.path('/ratings/addARating');
+  };
+
+  //route to /hygromter/addAHygrometer
+  vm.addAHygrometer = function() {
+    $location.path('/hygrometer/addAHygrometer');
   };
 }]);

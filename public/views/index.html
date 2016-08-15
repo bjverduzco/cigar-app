@@ -2,6 +2,7 @@
 <html ng-app="cigarApp">
   <head>
     <meta charset="utf-8">
+    <!-- <link type="text/css" rel="stylesheet" href="styles/styles.css"> -->
     <title>Witty cigar app name</title>
     <script src="vendors/angular/angular.min.js"></script>
     <script src="vendors/angular-route/angular-route.min.js"></script>
@@ -22,8 +23,9 @@
     <base href="/" />
   </head>
   <body ng-controller="MainController as main">
-    <h1>Witty Cigar App Name</h1>
-    <div id="nav bar">
+    <h1>Witty Cigar App Name<br /><h4>The cure for humidor overflow.</h4></h1>
+
+    <div ng-show="main.show" id="nav bar">
       <!-- button vs href looking like a button -->
       <button ng-click="main.humidor()">Humidor List</button>
       <!-- <a href="/humidor">Humidor List</a> -->
@@ -41,6 +43,7 @@
       <br />
     </div>
     <div ng-view>
+
 
     </div>
   </body>

@@ -13,7 +13,9 @@ var login = require('./routes/login');
 var humidor = require('./routes/humidor');
 var Cigar = require('./models/cigar');
 var ratings = require('./routes/ratings');
+var Rating = require('./models/rating');
 var hygrometer = require('./routes/hygrometer');
+var Hygrometers = require('./models/hygrometer');
 
 var app = express();
 
@@ -21,8 +23,6 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(session({
   secret: 'secret',
   key: 'user',
@@ -30,6 +30,9 @@ app.use(session({
   saveUninitialized: false,
   cookie: {maxAge: 30 * 60 * 1000, secure: false}
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 
@@ -39,7 +42,7 @@ app.use('/login', login);
 app.use('/register', register);
 app.use('/humidor', humidor);
 app.use('/ratings', ratings);
-// app.use('/hygrometer', hygrometer);
+app.use('/hygrometer', hygrometer);
 
 app.use('/api', function(request, response, next){
   if(request.isAuthenticated()){

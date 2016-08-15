@@ -302,7 +302,7 @@ LEFT JOIN country as wrapper ON wrapper_country.country_id = wrapper.id;
 SELECT sizes.id, sizes.number, gauges.id, gauges.number FROM sizes, gauges;
 
 --arrayList query
-SELECT gauges.id as id, gauges.number as gauge_number, sizes.number as sizes_number, wrapper_color.name as wrapper_color_name, wrapper_color.description as wrapper_color_description, wrapper_country.country_id as wrapper_country_id, country.country as wrapper_country, c.country as all_country, filler.country_id as filler_country_id, c_f.country as filler_country, c_o.id as origin_country_id, c_o.country as origin_country
+SELECT gauges.id as id, gauges.number as gauge_number, sizes.number as sizes_number, wrapper_color.name as wrapper_color_name, wrapper_color.description as wrapper_color_description, wrapper_country.country_id as wrapper_country_id, country.country as wrapper_country, c.country as all_country, filler.country_id as filler_country_id, c_f.country as filler_country, c_o.id as origin_country_id, c_o.country as origin_country, body.name as body
 FROM gauges
 FULL OUTER JOIN sizes ON gauges.id = sizes.id
 FULL OUTER JOIN wrapper_color ON gauges.id = wrapper_color.id
@@ -313,4 +313,125 @@ FULL OUTER JOIN filler ON gauges.id = filler.id
 LEFT JOIN country as c_f ON filler.country_id = c_f.id
 FULL OUTER JOIN origin ON gauges.id = origin.id
 LEFT JOIN country as c_o ON origin.country_id = c_o.id
+FULL OUTER JOIN	body ON gauges.id = body.id
 ORDER BY id;
+
+--cigars with all the fields
+SELECT cigars.id, brand.brand, cigars.name, body.name as body,
+wrapper_color.name as wrapper_color_name, wrapper_color.description as wrapper_color_description,
+country.country as origin_country, wrapper.country as wrapper_country, c_f.country as filler_country
+FROM cigars
+LEFT OUTER JOIN body ON cigars.body_id = body.id
+LEFT OUTER JOIN wrapper_color ON cigars.wrapper_color_id = wrapper_color.id
+LEFT OUTER JOIN brand ON cigars.brand_id = brand.id
+LEFT OUTER JOIN origin ON cigars.origin_id = origin.id
+LEFT JOIN country ON origin.country_id = country.id
+LEFT JOIN wrapper_country ON cigars.wrapper_country_id = wrapper_country.id
+LEFT JOIN country as wrapper ON wrapper_country.country_id = wrapper.id
+LEFT JOIN filler_combo ON filler_combo.cigars_id = cigars.id
+LEFT JOIN filler ON filler_combo.filler_id = filler.id
+LEFT JOIN country as c_f ON filler.country_id = c_f.id;
+
+--filler_combo entry
+INSERT INTO filler_combo (cigars_id, filler_id) VALUES
+((SELECT cigars.id FROM cigars WHERE cigars.id = 253),
+(SELECT filler.id FROM filler LEFT JOIN country ON filler.country_id = country.id WHERE country.country = 'Dominican Republic'));
+
+--insert into users-cigars
+--with id's
+INSERT INTO users_cigars (user_id, cigars_id, date, quantity, sizes_id, gauges_id, condition, comments) VALUES
+((1),
+(253),
+('08/12/2016'),
+(7),
+(12),
+(19),
+('Fake'),
+('Some awesomely honest and true comment.'));
+--with only certain attributes known
+INSERT INTO users_cigars (user_id, cigars_id, date, quantity, sizes_id, gauges_id, condition, comments) VALUES
+((SELECT users.id FROM users WHERE users.username = 'brian'),
+(SELECT cigars.id FROM cigars LEFT JOIN brand ON cigars.brand_id = brand.id WHERE brand.brand = '5 Vegas' AND cigars.name = 'Classic'),
+('08/12/2016'),
+(7),
+(SELECT sizes.id FROM sizes WHERE sizes.id = '12'),
+(SELECT gauges.id FROM gauges WHERE gauges.number = '54'),
+('Fake'),
+('Some awesomely honest and true comment.'));
+
+--users-cigars select
+SELECT users_cigars.id, users_cigars.cigars_id, users_cigars.users_id, brand.brand, cigars.name, body.name as body,
+wrapper_color.name as wrapper_color_name, wrapper_color.description as wrapper_color_description,
+country.country as origin_country, wrapper.country as wrapper_country,
+c_f.country as filler_country
+FROM users_cigars
+LEFT JOIN users ON users_cigars.users_id = users.id
+LEFT JOIN cigars ON users_cigars.cigars_id = cigars.id
+LEFT OUTER JOIN body ON cigars.body_id = body.id
+LEFT OUTER JOIN wrapper_color ON cigars.wrapper_color_id = wrapper_color.id
+LEFT OUTER JOIN brand ON cigars.brand_id = brand.id
+LEFT OUTER JOIN origin ON cigars.origin_id = origin.id
+LEFT JOIN country ON origin.country_id = country.id
+LEFT JOIN wrapper_country ON cigars.wrapper_country_id = wrapper_country.id
+LEFT JOIN country as wrapper ON wrapper_country.country_id = wrapper.id
+LEFT JOIN filler_combo ON filler_combo.cigars_id = cigars.id
+LEFT JOIN filler ON filler_combo.filler_id = filler.id
+LEFT JOIN country as c_f ON filler.country_id = c_f.id
+ORDER BY cigars.id;
+
+--insert into ratings knowing id's
+INSERT INTO ratings (cigars_id, users_id, date, rating, sizes_id, gauges_id, taste, draw, condition, pairing, comments) VALUES
+((99),
+(1),
+('08-08-2016'),
+(7),
+(11),
+(17),
+('Smooth'),
+('Smooth'),
+('New'),
+('Middleton'),
+('Scotchity, Scotch, Scotch'));
+
+--ratings select
+SELECT ratings.id, ratings.cigars_id, ratings.users_id, brand.brand, cigars.name, body.name as body,
+wrapper_color.name as wrapper_color_name, wrapper_color.description as wrapper_color_description,
+country.country as origin_country, wrapper.country as wrapper_country,
+c_f.country as filler_country
+FROM ratings
+LEFT JOIN users ON ratings.users_id = users.id
+LEFT JOIN cigars ON ratings.cigars_id = cigars.id
+LEFT OUTER JOIN body ON cigars.body_id = body.id
+LEFT OUTER JOIN wrapper_color ON cigars.wrapper_color_id = wrapper_color.id
+LEFT OUTER JOIN brand ON cigars.brand_id = brand.id
+LEFT OUTER JOIN origin ON cigars.origin_id = origin.id
+LEFT JOIN country ON origin.country_id = country.id
+LEFT JOIN wrapper_country ON cigars.wrapper_country_id = wrapper_country.id
+LEFT JOIN country as wrapper ON wrapper_country.country_id = wrapper.id
+LEFT JOIN filler_combo ON filler_combo.cigars_id = cigars.id
+LEFT JOIN filler ON filler_combo.filler_id = filler.id
+LEFT JOIN country as c_f ON filler.country_id = c_f.id
+ORDER BY cigars.id;
+
+--insert into hygrometer knowing id's
+INSERT INTO hygrometer (users_id, name, temperature_min, temperature_max, humidity_min, humidity_max, location, display) VALUES
+((1),
+('small humidor'),
+(65),
+(80),
+(67),
+(77),
+('desk drawer'),
+(false));
+
+--hygrometer list select
+SELECT hygrometer.id, users.id as users_id, users.username, hygrometer.name, hygrometer.temperature_min, hygrometer.temperature_max, hygrometer.humidity_min, hygrometer.humidity_max, hygrometer.location, hygrometer.display
+FROM hygrometer
+LEFT JOIN users ON hygrometer.users_id = users.id;
+
+--insert new cigar and add to users_cigars
+WITH new AS (INSERT INTO cigars (brand_id, name, body_id, wrapper_color_id,
+wrapper_country_id, origin_id) VALUES ((1),('bleh'), (2), (2), (3), (2))
+RETURNING id) INSERT INTO users_cigars (users_id, cigars_id, date, quantity,
+sizes_id, gauges_id, condition, comments) VALUES (1, (SELECT new.id from new),
+'08-13-2016', 3, 13, 13, 'work', 'please?');

@@ -4,6 +4,7 @@ var Cigars = require('../models/cigar');
 
 router.get('/', function(request, response, next){
   var sendData = {};
+
   Cigars.getCigarList(function(err, result){
     if(err){
       console.log(' get for /routes/humidor.js', err);
@@ -13,7 +14,7 @@ router.get('/', function(request, response, next){
       // console.log('success geting cigar list', result);
       sendData = result;
       // console.log('success geting cigar list /routes/humidor sendData', sendData);
-      console.log('success getting cigar list, find this /humidor');
+      console.log('success getting cigar list, find this /routes/humidor');
       response.send(sendData);
     }
   });
@@ -36,14 +37,35 @@ router.get('/arrays', function(request, response, next){
   });
 });
 
+router.get('/userCigars', function(request, response, next){
+  var sendData = {};
+  var user = {};
+  user = request.user;
+  console.log(user);
+
+  Cigars.getUserCigars(user, function(err, result){
+    if(err){
+      console.log('err /routes/humidor/userCigars', err);
+    }
+    else{
+      sendData = result;
+      console.log('success getting userCigars, find this /userCigars');
+      response.send(sendData);
+    }
+  });
+});
+
 router.get('/addACigar', function(request, response){
   response.sendFile(path.join(__dirname, '../public/views/addACigar.html'));
 });
 
 router.post('/addACigar', function(request, response, next){
-  console.log(request.body);
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+  console.log(sendData.user);
 
-  Cigars.create(request.body, function(err, post){
+  Cigars.create(sendData, function(err, post){
     if(err){
       console.log(' post for /routes/humidor.js', err);
       next(err);
@@ -54,6 +76,72 @@ router.post('/addACigar', function(request, response, next){
     }
   });
   // response.sendStatus(200);
+});
+
+router.post('/addToCigars', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Cigars.createAndAdd(sendData, function(err, post){
+    if(err){
+      console.log('post /routes/humidor/addToCigars', err);
+      next(err);
+    }
+    else{
+      console.log('success adding to cigars and users_cigars');
+      response.redirect('/humidor');
+    }
+  });
+});
+
+router.post('/addToUserCigars', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Cigars.addToUser(sendData, function(err, post){
+    if(err){
+      console.log('post /routes/humidor/addToUserCigars', err);
+      next(err);
+    }
+    else{
+      console.log('success adding to users_cigars');
+      response.redirect('/humidor');
+    }
+  });
+});
+
+router.post('/addToBrand', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Cigars.addToBrand(sendData, function(err, post){
+    if(err){
+      console.log('post /routes/humidor/addToBrand', err);
+      next(err);
+    }
+    else{
+      console.log('success adding to brand, cigars and users_cigars');
+      response.redirect('/humidor')
+    }
+  })
+})
+
+router.delete('/remove/:id', function(request, response){
+  var id = request.params.id;
+  console.log(id);
+  Cigars.findByIdAndRemove(id, function(err){
+    if(err){
+      console.log(err);
+      response.sendStatus(500);
+    }
+    else{
+      console.log('cigar deleted.');
+      response.sendStatus(200);
+    }
+  });
 });
 
 // router.get('/ratings', function(request, response){
