@@ -1,10 +1,25 @@
 var pg = require('pg');
+var url = require('url');
+var config={};
 
-var config = {
-  database: 'solo-cigar',
-  port: 5432,
-  idleTimeoutMills: 30000
-};
+if(process.env.DATABASE_URL != undefined) {
+  var params = url.parse(process.env.DATABASE_URL);
+  var auth = params.auth ? params.auth.split(':') : [null, null];
+  config = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: process.env.SSL
+  };
+  } else {
+    config = {
+      database: 'solo-cigar',
+      port: 5432,
+      idleTimeoutMills: 30000
+   };
+}
 
 var pool = new pg.Pool(config);
 
