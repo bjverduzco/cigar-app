@@ -16,7 +16,7 @@
   <br />
 </div>
 <h2>Hygrometer:</h2>
-<table>
+<table datatable="ng" class="row-border hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -28,8 +28,8 @@
       <th>Display</th>
     </tr>
   </thead>
-  <tbody ng-repeat="hygro in hygrometer.hygrometers track by $index">
-    <tr>
+  <tbody >
+    <tr ng-repeat="hygro in hygrometer.hygrometers track by $index">
       <td>{{hygro.name}}</td>
       <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_min"/></td>
       <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_max"/></td>

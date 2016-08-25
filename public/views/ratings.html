@@ -17,7 +17,7 @@
 </div>
 <h2>Ratings:</h2>
 <!-- <a href="/ratings/addARating">Add a Rating</a> -->
-<table>
+<table datatable="ng" class="row-border hover">
   <thead>
     <tr>
       <th>Brand</th>
@@ -39,8 +39,8 @@
       <th>Comments</th>
     </tr>
   </thead>
-  <tbody ng-repeat="cigar in ratings.rates track by $index">
-    <tr>
+  <tbody>
+    <tr ng-repeat="cigar in ratings.rates track by $index">
       <td>{{cigar.brand}}</td>
       <td>{{cigar.name}}</td>
       <td>{{cigar.date | date: "short"}}</td>

@@ -105,7 +105,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
           }
         }
         vm.filler = [];
-        //doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //totally doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for(var i = 0; i < vm.name.filler_country.length; i++){
           if(vm.name.filler !== '' | vm.name.filler !== null){
             for(var j = 0; j < vm.cigarArrays.length; j++){
@@ -222,6 +222,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     $location.path('/ratings');
   };
 
+  //shows the values that can be edited
   vm.editCigars = function(){
     vm.edit.more = !vm.edit.more;
     vm.edit.less = !vm.edit.less;

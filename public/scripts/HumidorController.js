@@ -1,4 +1,4 @@
-angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', function($http, $location, CigarService){
+angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', 'DTOptionsBuilder', 'DTColumnDefBuilder', function($http, $location, CigarService, DTOptionsBuilder, DTColumnDefBuilder){
   var vm = this;
 
   //cigarData from CigarService to populate data/form
@@ -49,6 +49,26 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
   vm.required.secondaryName = false;
 
 
+  //for options and column defs for datatables
+  vm.dtOptions = DTOptionsBuilder.newOptions();
+  vm.dtColumDefs = [
+    DTColumnDefBuilder.newColumnDef(0),
+    DTColumnDefBuilder.newColumnDef(1),
+    DTColumnDefBuilder.newColumnDef(2),
+    DTColumnDefBuilder.newColumnDef(3),
+    DTColumnDefBuilder.newColumnDef(4),
+    DTColumnDefBuilder.newColumnDef(5),
+    DTColumnDefBuilder.newColumnDef(6),
+    DTColumnDefBuilder.newColumnDef(7),
+    DTColumnDefBuilder.newColumnDef(8),
+    DTColumnDefBuilder.newColumnDef(9),
+    DTColumnDefBuilder.newColumnDef(10),
+    DTColumnDefBuilder.newColumnDef(11),
+    DTColumnDefBuilder.newColumnDef(12).notSortable(),
+    DTColumnDefBuilder.newColumnDef(13).notSortable()
+  ]
+
+
 
   //function to show and hide brand and name input fields when other option is
   //selected or deselected
@@ -76,6 +96,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     }
   };
 
+//used to help prefill the options if they are known
   function prefill(){
     for(var i = 0; i < vm.cigarArrays.length; i++){
       if(vm.name.origin_country == vm.cigarArrays[i].origin_country){
@@ -110,7 +131,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       }
     }
     vm.filler = [];
-    //doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //totally doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for(var i = 0; i < vm.name.filler_country.length; i++){
       if(vm.name.filler !== '' | vm.name.filler !== null){
         for(var j = 0; j < vm.cigarArrays.length; j++){
@@ -141,7 +162,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     console.log('Couldnt navigate to addACigar', err);
   }
 
-  //functions to show more or less options
+  //functions to show more or less options on the form
   vm.moreOptions = function(visable){
     visable.more = !visable.more;
     visable.less = !visable.less;

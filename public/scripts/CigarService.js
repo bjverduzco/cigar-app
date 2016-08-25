@@ -23,6 +23,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+//function to get and save the cigar data that will fill out the forms
   function getArrays() {
     return $http.get('/humidor/arrays').then(function(response) {
       vm.cigarArrays = response.data;
@@ -55,6 +56,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+//function to get the hygrometers from the db and save them
   function getHygrometers(){
     return $http.get('/hygrometer').then(function(response) {
       vm.hygrometers = response.data;
@@ -65,6 +67,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+//function to save a hygrometer from the addAHygrometer page
   function hygrometerSave(sendData){
     return $http.post('/hygrometer/addAHygrometer', sendData).then(function(response){
       console.log('success adding a hygro', response);
@@ -116,6 +119,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+//function to save a rating form the addARating form
   function ratingSave(sendData){
     // vm.user = UserService.getUser();
     return $http.post('/ratings/addARating', sendData).then(function(response){
@@ -136,6 +140,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+//used to return the data being called on the controllers
   function cigarData(){
     return vm.cigarData;
   };
@@ -174,7 +179,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     remove: remove
 
   };
-
+//filter function to check if dropdown options are unique
 }]).filter('unique', ['CigarService', function(CigarService) {
     return function(input, key) {
         var unique = {};
@@ -187,6 +192,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
         }
         return uniqueList;
     };
+    //filter function for fillers
 }]).filter('fillerFilter', ['CigarService', function(CigarService) {
     return function(fillerAll, cigarsFillers) {
       // console.log('1', cigarsFillers.filler);

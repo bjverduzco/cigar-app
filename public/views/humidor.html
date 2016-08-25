@@ -19,7 +19,7 @@
 <!-- <h3>cash money is like: </h3> -->
 <input type="text" ng-model="humidor.cashMoney"/>
 <br />
-<table>
+<table datatable="ng" class="row-border hover">
   <thead>
     <tr>
       <th>Brand</th>
@@ -38,8 +38,8 @@
       <th>Comments</th>
     </tr>
   </thead>
-  <tbody ng-repeat="cigar in humidor.userCigarData track by $index">
-    <tr>
+  <tbody >
+    <tr ng-repeat="cigar in humidor.userCigarData track by $index">
       <td>{{cigar.brand}}</td>
       <td>{{cigar.name}}</td>
       <td>{{cigar.date | date: "short"}}</td>

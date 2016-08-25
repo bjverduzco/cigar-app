@@ -1,1 +1,1 @@
-angular.module('cigarApp', ['ngRoute']);
+angular.module('cigarApp', ['ngRoute', 'datatables']);
