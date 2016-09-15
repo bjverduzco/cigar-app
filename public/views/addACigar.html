@@ -1,4 +1,4 @@
-<div id="nav bar">
+<div class="btn-group btn-group-justified" role="group" id="nav bar">
   <!-- button vs href looking like a button -->
   <button ng-click="humidor.humidor()">Humidor List</button>
   <!-- <a href="/humidor">Humidor List</a> -->
@@ -33,7 +33,7 @@
       <option value="">- Choose a Name -</option>
     </select>
     <span id="required">* - required</span>
-    <!-- {{humidor.name}} -->
+    {{humidor.name}}
   </div>
   <div>
     <label for="date">Date:</label>
@@ -51,6 +51,7 @@
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="size">Size:</label>
+    <!-- filters are useless for ones that try to match '' -->
     <select ng-model="humidor.size" ng-options="size.sizes_number for size in humidor.cigarArrays | filter: {sizes_number: ''}">
       <option value="">- Choose a Size -</option>
     </select>
@@ -65,7 +66,7 @@
     <label for="origin">Origin:</label>
     <!-- <input type="text" id="origin" ng-model="humidor.origin"/> -->
     <select ng-model="humidor.origin"  ng-options="origin.origin_country for origin in humidor.cigarArrays | filter: {origin_country: humidor.name.origin_country} | filter: {origin_country: ''}">
-      <option value="">- Choose a Country Origin -</option>
+      <option value="">- Choose a Country of Origin -</option>
     </select>
 
   </div>
@@ -78,7 +79,7 @@
     <span>{{humidor.wrapperColor.wrapper_color_description}}</span>
   </div>
   <div ng-hide="humidor.edit.more">
-    <label for="wrapperCountry">Wrapper Country of Origin:</label>
+    <label for="wrapperCountry">Wrapper:</label>
     <!-- <input type="text" id="wrapperCountry" ng-model="humidor.wrapperCountry"/> -->
     <select ng-model="humidor.wrapperCountry" ng-options="wrapper.wrapper_country for wrapper in humidor.cigarArrays | filter: {wrapper_country: humidor.name.wrapper_country} | filter: {wrapper_country: ''}">
       <option value="">- Choose a Wrapper Country of Origin -</option>
@@ -94,7 +95,7 @@
   </div>
   <div ng-hide="humidor.edit.more">
     <label for="body">Body:</label>
-    <select ng-model="humidor.body" ng-options="body.body for body in humidor.cigarArrays | filter: {body: humidor.name.body} : true | filter: {body: ''}">
+    <select ng-model="humidor.body" ng-options="body.body for body in humidor.cigarArrays | filter: {body: humidor.name.body} | filter: {body: ''}">
       <option value="">- Choose a Body -</option>
     </select>
   </div>

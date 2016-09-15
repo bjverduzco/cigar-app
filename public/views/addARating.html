@@ -1,4 +1,4 @@
-<div id="nav bar">
+<div class="btn-group btn-group-justified" role="group" id="nav bar">
   <!-- button vs href looking like a button -->
   <button ng-click="ratings.humidor()">Humidor List</button>
   <!-- <a href="/humidor">Humidor List</a> -->
@@ -70,7 +70,7 @@
   <div ng-hide="ratings.edit.more">
     <label for="wrapperColor">Wrapper Color:</label>
     <!-- <input type="text" id="wrapperColor" ng-model="ratings.wrapperColor"/> -->
-    <select ng-model="ratings.wrapperColor" ng-options="wrapper.wrapper_color_name for wrapper in ratings.cigarArrays | filter: {wrapper_color_name: ratings.name.wrapper_color_name} : true | filter: {wrapper_color_name: ''}">
+    <select ng-model="ratings.wrapperColor" ng-options="wrapper.wrapper_color_name for wrapper in ratings.cigarArrays | filter: {wrapper_color_name: ratings.name.wrapper_color_name} | filter: {wrapper_color_name: ''}">
       <option value="">- Choose a Wrapper Color -</option>
     </select>
     <span>{{ratings.wrapperColor.wrapper_color_description}}</span>
@@ -92,7 +92,7 @@
   </div>
   <div ng-hide="ratings.edit.more">
     <label for="body">Body:</label>
-    <select ng-model="ratings.body" ng-options="body.body for body in ratings.cigarArrays | filter: {body: ratings.name.body} : true | filter: {body: ''}">
+    <select ng-model="ratings.body" ng-options="body.body for body in ratings.cigarArrays | filter: {body: ratings.name.body} | filter: {body: ''}">
       <option value="">- Choose a Body -</option>
     </select>
   </div>

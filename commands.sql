@@ -435,3 +435,15 @@ wrapper_country_id, origin_id) VALUES ((1),('bleh'), (2), (2), (3), (2))
 RETURNING id) INSERT INTO users_cigars (users_id, cigars_id, date, quantity,
 sizes_id, gauges_id, condition, comments) VALUES (1, (SELECT new.id from new),
 '08-13-2016', 3, 13, 13, 'work', 'please?');
+
+--insert new brand, with other and users data
+WITH newbrand AS (INSERT INTO brand (brand) VALUES ('test') returning id),
+newcigar AS (INSERT INTO cigars(brand_id, name, body_id, wrapper_color_id,
+wrapper_country_id, origin_id, filler_combo_id) VALUES ((SELECT newbrand.id FROM
+newbrand), 'test', 5, 4, 5, 1, 2) returning id),
+useful AS (INSERT INTO cigars(brand_id, name, body_id, wrapper_color_id,
+wrapper_country_id, origin_id, filler_combo_id) VALUES ((SELECT newbrand.id FROM newbrand),
+'other', null, null, null, null, null) returning id)
+INSERT INTO users_cigars(users_id, cigars_id, date, quantity, sizes_id, gauges_id,
+condition, comments) VALUES(1,(SELECT newcigar.id FROM newcigar), '09-14-2016', 3,
+3, 3, 'like new', 'please work');

@@ -1,4 +1,5 @@
 angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', function($http, $location, CigarService){
+//options for using datatables and angular-datatables
  // 'DTOptionsBuilder', 'DTColumnDefBuilder', , DTOptionsBuilder, DTColumnDefBuilder
 
   var vm = this;
@@ -82,10 +83,18 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     if(vm.brand.brand !== 'other'){
       vm.edit.brand = true;
       vm.required.secondaryBrand = false;
+      // vm.name = '';
+      // vm.name.name = 'other';
+      // console.log('test name and brand switch', vm.name);
     }
-
+    console.log('what is name???', vm.name);
     if(vm.name !== ''){
       if(vm.name.name === 'other'){
+        vm.name.origin_country = '';
+        vm.name.wrapper_color_name = '';
+        vm.name.wrapper_country = '';
+        vm.name.body = '';
+        // vm.name.filler = '';
         vm.edit.name = false;
         vm.required.secondaryName = true;
       }
@@ -93,6 +102,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
         vm.edit.name = true;
         vm.required.secondaryName = true;
         // vm.wrapperColor = vm.name.wrapper_color;
+        console.log('to see what brand and name other gives', vm.name);
         prefill();
       }
     }
@@ -104,7 +114,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       if(vm.name.origin_country == vm.cigarArrays[i].origin_country){
         vm.origin = vm.cigarArrays[i];
       }
-      else if(vm.name.origin_country == '' | vm.name.origin_country == null){
+      else if(vm.name.origin_country == '' | vm.name.origin_country == null | vm.name.origin_country == undefined){
         vm.origin = '';
       }
     }
@@ -112,7 +122,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       if(vm.name.wrapper_color_name == vm.cigarArrays[i].wrapper_color_name){
         vm.wrapperColor = vm.cigarArrays[i];
       }
-      else if(vm.name.wrapper_color_name == '' | vm.name.wrapper_color_name == null){
+      else if(vm.name.wrapper_color_name == '' | vm.name.wrapper_color_name == null | vm.name.wrapper_color_name == undefined){
         vm.wrapperColor = '';
       }
     }
@@ -120,7 +130,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       if(vm.name.wrapper_country == vm.cigarArrays[i].wrapper_country){
         vm.wrapperCountry = vm.cigarArrays[i];
       }
-      else if(vm.name.wrapper_country == '' | vm.name.wrapper_country == null){
+      else if(vm.name.wrapper_country == '' | vm.name.wrapper_country == null | vm.name.wrapper_country == undefined){
         vm.wrapperCountry = '';
       }
     }
@@ -128,7 +138,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       if(vm.name.body == vm.cigarArrays[i].body){
         vm.body = vm.cigarArrays[i];
       }
-      else if(vm.name.body == '' | vm.name.body == null){
+      else if(vm.name.body == '' | vm.name.body == null | vm.name.body == undefined){
         vm.body = '';
       }
     }
@@ -238,13 +248,13 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     //   console.log('Failure adding cigar', err);
     // });
 
-    //case 1 add cigar to db and and brand + name = 'other' to db, then add to
+    //case 1 add cigar to db and brand + name = 'other' to db, then add to
     //users_cigars
     if(vm.brand.brand == 'other'){
       CigarService.addToBrand(sendData).then(handleSuccess, handleFailure);
     }
 
-    //case 2 add to cigar to db and then add to users_cigars
+    //case 2 add name and cigar to db and then add to users_cigars
     if(vm.name.name == 'other'){
       CigarService.addToCigars(sendData).then(handleSuccess, handleFailure);
     }

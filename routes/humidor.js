@@ -126,7 +126,9 @@ router.post('/addToBrand', function(request, response, next){
       console.log('success adding to brand, cigars and users_cigars');
       response.redirect('/humidor')
     }
-  })
+  });
+
+
 })
 
 router.delete('/remove/:id', function(request, response){

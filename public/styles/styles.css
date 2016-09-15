@@ -22,6 +22,52 @@
  	font: inherit;
  	vertical-align: baseline;
  }*/
- .navbar {
-   background: rgb(128,0,0);
- }
+body {
+  background-color: rgb(128,0,0);
+}
+
+/*shades*/
+/*rgb(64,0,0); shades -- darker red/maroon*/
+/*rgb(229,0,0); shades -- little brighter red*/
+
+
+/*triad*/
+/*rgb(255,252,25); triad -- yellow*/
+/*rgb(20,133,204); traid -- med blue*/
+/*rgb(9,113,178); triad -- darkish blue*/
+
+/*complementary*/
+/*rgb(0,178,51); complementary -- darkish green*/
+/*rgb(0,255,72); complementary -- lightish green*/
+
+/*compound*/
+/*rgb(153,61,61); compound -- shade of red almost purple*/
+/*rgb(255,0,255); compound -- purpleish*/
+/*rgb(197,255,64); compound -- yellow-green*/
+/*rgb(204,202,20); compound -- mustard yellowish*/
+
+/*custom*/
+/*rgb(232,164,42); custom -- dark yellow*/
+/*rgb(70,88,255); custom -- muted blue*/
+/*prob shouldnt use the color below*/
+/*rgb(124,232,0); custom -- contrasting green*/
+/*maybe for lines or something below*/
+/*rgb(172,255,245); custom --muted iceish blueish*/
+/*rgb(0,9,79); custom --darrrrrrk blue*/
+
+
+.view {
+  background-color: rgb(232,164,42);
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+
+h1 {
+  padding-left: 10px;
+  line-height: .75em;
+}
+/*.page-header {
+ background-color: rgba(128,0,0,0.75);
+ line-height: 0.5em;
+}*/

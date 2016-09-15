@@ -56,6 +56,26 @@ function create(data, callback){
   });
 };
 
+function updateAndAdd(data, callback){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+
+    client.query('UPDATE ;', [], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
+
 function getCigarList(callback){
   var sendData = {};
 
@@ -230,7 +250,7 @@ function createAndAdd(data, callback){
   });
 };
 
-function addToUser(data, callback){
+function addToUserCigars(data, callback){
   console.log('/models/cigar.js', data);
   pool.connect(function(err, client, done){
     if(err){
@@ -277,6 +297,37 @@ function findByIdAndRemove(data, callback){
   });
 };
 
+function addToBrand(data, callback){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+    client.query('WITH newbrand AS (INSERT INTO brand (brand) VALUES ($1) returning id), '
+    + 'newcigar AS (INSERT INTO cigars(brand_id, name, body_id, wrapper_color_id, '
+    + 'wrapper_country_id, origin_id, filler_combo_id) VALUES ((SELECT newbrand.id FROM '
+    + 'newbrand), $2, $3, $4, $5, $6, $7) returning id), '
+    + 'useful AS (INSERT INTO cigars(brand_id, name, body_id, wrapper_color_id, '
+    + 'wrapper_country_id, origin_id, filler_combo_id) VALUES ((SELECT newbrand.id '
+    + 'FROM newbrand), $8, $9, $10, $11, $12, $13) returning id) '
+    + 'INSERT INTO users_cigars(users_id, cigars_id, date, quantity, sizes_id, gauges_id, '
+    + 'condition, comments) VALUES($14,(SELECT newcigar.id FROM newcigar), $15, $16, '
+    + '$17, $18, $19, $20);',
+    [data.brand, data.name, data.body.id, data.wrapperColor.id, data.wrapperCountry.id,
+    data.origin.id, null, 'other', null, null, null, null, null, data.user.id, data.date,
+    data.quantity, data.size, data.gauge, data.condition, data.comments], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
+
 
 
 
@@ -286,6 +337,7 @@ module.exports = {
   getArrayList: getArrayList,
   getUserCigars: getUserCigars,
   createAndAdd: createAndAdd,
-  addToUser: addToUser,
-  findByIdAndRemove: findByIdAndRemove
+  addToUserCigars: addToUserCigars,
+  findByIdAndRemove: findByIdAndRemove,
+  addToBrand: addToBrand
 };

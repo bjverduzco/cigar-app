@@ -65,6 +65,11 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
 
     if(vm.name !== ''){
       if(vm.name.name === 'other'){
+        vm.name.origin_country = '';
+        vm.name.wrapper_color_name = '';
+        vm.name.wrapper_country = '';
+        vm.name.body = '';
+        // vm.name.filler = '';
         vm.edit.name = false;
         vm.required.secondaryName = true;
       }
