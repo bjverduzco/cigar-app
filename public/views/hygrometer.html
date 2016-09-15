@@ -1,4 +1,4 @@
-<div id="nav bar">
+<div class="btn-group btn-group-justified" role="group" id="nav bar">
   <!-- button vs href looking like a button -->
   <button ng-click="hygrometer.humidor()">Humidor List</button>
   <!-- <a href="/humidor">Humidor List</a> -->
@@ -16,33 +16,36 @@
   <br />
 </div>
 <h2>Hygrometer:</h2>
-<table datatable="ng" class="row-border hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Min Temp</th>
-      <th>Max Temp</th>
-      <th>Min Humidity</th>
-      <th>Max Humidity</th>
-      <th>Location</th>
-      <th>Display</th>
-    </tr>
-  </thead>
-  <tbody >
-    <tr ng-repeat="hygro in hygrometer.hygrometers track by $index">
-      <td>{{hygro.name}}</td>
-      <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_min"/></td>
-      <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_max"/></td>
-      <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_min"/></td>
-      <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_max"/></td>
-      <td><span ng-show="hygrometer.edit.more">{{hygro.location}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.location"/></td>
-      <td><span>{{hygrometer.display}}</td>
-        <td><button ng-show="hygrometer.edit.more" ng-click="hygrometer.editHygrometers()">Edit</button></td>
-        <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.saveHygrometers()">Save</button></td>
-        <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.editHygrometers()">Cancel</button></td>
-      <td><button ng-click="hygrometer.remove()">Remove</button></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+     <!-- datatable="ng" class="row-border hover" -->
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Min Temp</th>
+        <th>Max Temp</th>
+        <th>Min Humidity</th>
+        <th>Max Humidity</th>
+        <th>Location</th>
+        <th>Display</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr ng-repeat="hygro in hygrometer.hygrometers track by $index">
+        <td>{{hygro.name}}</td>
+        <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_min"/></td>
+        <td><span ng-show="hygrometer.edit.more">{{hygro.temperature_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.temperature_max"/></td>
+        <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_min}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_min"/></td>
+        <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_max"/></td>
+        <td><span ng-show="hygrometer.edit.more">{{hygro.location}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.location"/></td>
+        <td><span>{{hygrometer.display}}</td>
+          <td><button ng-show="hygrometer.edit.more" ng-click="hygrometer.editHygrometers()">Edit</button></td>
+          <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.saveHygrometers()">Save</button></td>
+          <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.editHygrometers()">Cancel</button></td>
+        <td><button ng-click="hygrometer.remove()">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <br />
-<button ng-click="hygrometer.addAHygrometer()">Add a Hygrometer</button>
+<button class="btn-group btn-group-justified" role="group" ng-click="hygrometer.addAHygrometer()">Add a Hygrometer</button>

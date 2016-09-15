@@ -1,4 +1,4 @@
-<div id="nav bar">
+<div class="btn-group btn-group-justified" role="group" id="nav bar">
   <!-- button vs href looking like a button -->
   <button ng-click="ratings.humidor()">Humidor List</button>
   <!-- <a href="/humidor">Humidor List</a> -->
@@ -17,53 +17,57 @@
 </div>
 <h2>Ratings:</h2>
 <!-- <a href="/ratings/addARating">Add a Rating</a> -->
-<table datatable="ng" class="row-border hover">
-  <thead>
-    <tr>
-      <th>Brand</th>
-      <th>Name</th>
-      <th>Date</th>
-      <th>Rating</th>
-      <th>Size</th>
-      <th>Gauge</th>
-      <th>Origin</th>
-      <th>Wrapper Color</th>
-      <th>Wrapper Color Description</th>
-      <th>Wrapper Country</th>
-      <th>Filler(s)</th>
-      <th>Body</th>
-      <th>Taste</th>
-      <th>Draw</th>
-      <th>Physical Condition</th>
-      <th>Pairing</th>
-      <th>Comments</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="cigar in ratings.rates track by $index">
-      <td>{{cigar.brand}}</td>
-      <td>{{cigar.name}}</td>
-      <td>{{cigar.date | date: "short"}}</td>
-      <td><span ng-show="ratings.edit.more">{{cigar.rating}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.rating" value="{{cigar.rating}}"/></td>
-      <td>{{cigar.size}}</td>
-      <td>{{cigar.gauge}}</td>
-      <td>{{cigar.origin_country}}</td>
-      <td>{{cigar.wrapper_color_name}}</td>
-      <td>{{cigar.wrapper_color_description}}</td>
-      <td>{{cigar.wrapper_country}}</td>
-      <td>{{cigar.filler_country}}</td>
-      <td>{{cigar.body}}</td>
-      <td>{{cigar.taste}}</td>
-      <td>{{cigar.draw}}</td>
-      <td><span ng-show="ratings.edit.more">{{cigar.condition}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.condition" value="{{cigar.condition}}"/></td>
-      <td><span ng-show="ratings.edit.more">{{cigar.pairing}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.pairing" value="{{cigar.pairing}}"/></td>
-      <td><span ng-show="ratings.edit.more">{{cigar.comments}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.comments" value="{{cigar.comments}}"/></td>
-      <td><button ng-show="ratings.edit.more" ng-click="ratings.editCigars()">Edit</button></td>
-      <td><button ng-hide="ratings.edit.less" ng-click="ratings.saveCigareEdit()">Save</button></td>
-      <td><button ng-hide="ratings.edit.less" ng-click="ratings.editCigars()">Cancel</button></td>
-      <td><button ng-click="ratings.remove()">Remove</button></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+     <!-- datatable="ng" class="row-border hover" -->
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Rating</th>
+        <th>Size</th>
+        <th>Gauge</th>
+        <th>Origin</th>
+        <th>Wrapper Color</th>
+        <th>Wrapper Color Description</th>
+        <th>Wrapper Country</th>
+        <th>Filler(s)</th>
+        <th>Body</th>
+        <th>Taste</th>
+        <th>Draw</th>
+        <th>Physical Condition</th>
+        <th>Pairing</th>
+        <th>Comments</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="cigar in ratings.rates track by $index">
+        <td>{{cigar.brand}}</td>
+        <td>{{cigar.name}}</td>
+        <td>{{cigar.date | date: "short"}}</td>
+        <td><span ng-show="ratings.edit.more">{{cigar.rating}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.rating" value="{{cigar.rating}}"/></td>
+        <td>{{cigar.size}}</td>
+        <td>{{cigar.gauge}}</td>
+        <td>{{cigar.origin_country}}</td>
+        <td>{{cigar.wrapper_color_name}}</td>
+        <td>{{cigar.wrapper_color_description}}</td>
+        <td>{{cigar.wrapper_country}}</td>
+        <td>{{cigar.filler_country}}</td>
+        <td>{{cigar.body}}</td>
+        <td>{{cigar.taste}}</td>
+        <td>{{cigar.draw}}</td>
+        <td><span ng-show="ratings.edit.more">{{cigar.condition}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.condition" value="{{cigar.condition}}"/></td>
+        <td><span ng-show="ratings.edit.more">{{cigar.pairing}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.pairing" value="{{cigar.pairing}}"/></td>
+        <td><span ng-show="ratings.edit.more">{{cigar.comments}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.comments" value="{{cigar.comments}}"/></td>
+        <td><button ng-show="ratings.edit.more" ng-click="ratings.editCigars()">Edit</button></td>
+        <td><button ng-hide="ratings.edit.less" ng-click="ratings.saveCigareEdit()">Save</button></td>
+        <td><button ng-hide="ratings.edit.less" ng-click="ratings.editCigars()">Cancel</button></td>
+        <td><button ng-click="ratings.remove()">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <br />
-<button ng-click="ratings.addARating()">Add a Rating</button>
+<button class="btn-group btn-group-justified" role="group" ng-click="ratings.addARating()">Add a Rating</button>

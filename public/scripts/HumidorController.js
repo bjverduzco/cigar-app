@@ -1,4 +1,6 @@
-angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', 'DTOptionsBuilder', 'DTColumnDefBuilder', function($http, $location, CigarService, DTOptionsBuilder, DTColumnDefBuilder){
+angular.module('cigarApp').controller('HumidorController', ['$http', '$location', 'CigarService', function($http, $location, CigarService){
+ // 'DTOptionsBuilder', 'DTColumnDefBuilder', , DTOptionsBuilder, DTColumnDefBuilder
+
   var vm = this;
 
   //cigarData from CigarService to populate data/form
@@ -50,23 +52,23 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
 
 
   //for options and column defs for datatables
-  vm.dtOptions = DTOptionsBuilder.newOptions();
-  vm.dtColumDefs = [
-    DTColumnDefBuilder.newColumnDef(0),
-    DTColumnDefBuilder.newColumnDef(1),
-    DTColumnDefBuilder.newColumnDef(2),
-    DTColumnDefBuilder.newColumnDef(3),
-    DTColumnDefBuilder.newColumnDef(4),
-    DTColumnDefBuilder.newColumnDef(5),
-    DTColumnDefBuilder.newColumnDef(6),
-    DTColumnDefBuilder.newColumnDef(7),
-    DTColumnDefBuilder.newColumnDef(8),
-    DTColumnDefBuilder.newColumnDef(9),
-    DTColumnDefBuilder.newColumnDef(10),
-    DTColumnDefBuilder.newColumnDef(11),
-    DTColumnDefBuilder.newColumnDef(12).notSortable(),
-    DTColumnDefBuilder.newColumnDef(13).notSortable()
-  ]
+  // vm.dtOptions = DTOptionsBuilder.newOptions();
+  // vm.dtColumDefs = [
+  //   DTColumnDefBuilder.newColumnDef(0),
+  //   DTColumnDefBuilder.newColumnDef(1),
+  //   DTColumnDefBuilder.newColumnDef(2),
+  //   DTColumnDefBuilder.newColumnDef(3),
+  //   DTColumnDefBuilder.newColumnDef(4),
+  //   DTColumnDefBuilder.newColumnDef(5),
+  //   DTColumnDefBuilder.newColumnDef(6),
+  //   DTColumnDefBuilder.newColumnDef(7),
+  //   DTColumnDefBuilder.newColumnDef(8),
+  //   DTColumnDefBuilder.newColumnDef(9),
+  //   DTColumnDefBuilder.newColumnDef(10),
+  //   DTColumnDefBuilder.newColumnDef(11),
+  //   DTColumnDefBuilder.newColumnDef(12).notSortable(),
+  //   DTColumnDefBuilder.newColumnDef(13).notSortable()
+  // ]
 
 
 

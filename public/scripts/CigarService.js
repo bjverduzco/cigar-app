@@ -23,6 +23,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+
 //function to get and save the cigar data that will fill out the forms
   function getArrays() {
     return $http.get('/humidor/arrays').then(function(response) {
