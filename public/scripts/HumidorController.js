@@ -207,6 +207,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
       return alert('Please fill out all of the required fields.');
     }
     else{
+      console.log('testing fdklasfjkla;s');
       sendData.brand = vm.newBrand;
     }
 
@@ -228,17 +229,58 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     sendData.date = vm.date;
     // sendData.picUpload = vm.picUpload;
     sendData.quantity = vm.quantity;
-    sendData.size = vm.size.number;
-    sendData.gauge = vm.gauge;
-    sendData.origin = vm.origin;
-    sendData.wrapperColor = vm.wrapperColor;
-    sendData.wrapperCountry = vm.wrapperCountry;
-    sendData.filler = vm.filler;
-    sendData.body = vm.body;
+    if(vm.size == '' | vm.size == null | vm.size == undefined){
+      sendData.size = {id: null};
+    }
+    else{
+      sendData.size = vm.size;
+    }
+
+    if(vm.gauge == '' | vm.gauge == null | vm.gauge == undefined){
+      sendData.gague = {id: null};
+    }
+    else{
+      sendData.gauge = vm.gauge;
+    }
+
+    if(vm.origin == '' | vm.origin == null | vm.origin == undefined){
+      sendData.origin = {id: null};
+    }
+    else{
+      sendData.origin = vm.origin;
+    }
+
+    if(vm.wrapperColor == '' | vm.wrapperColor == null | vm.wrapperColor == undefined){
+      sendData.wrapperColor = {id: null};
+    }
+    else{
+      sendData.wrapperColor = vm.wrapperColor;
+    }
+
+    if(vm.wrapperCountry == '' | vm.wrapperCountry == null | vm.wrapperCountry == undefined){
+      sendData.wrapperCountry = {id: null};
+    }
+    else{
+      sendData.wrapperCountry = vm.wrapperCountry;
+    }
+
+    if(vm.filler == '' | vm.filler == null | vm.filler == undefined){
+      sendData.filler = {id: null};
+    }
+    else{
+      sendData.filler = vm.filler;
+    }
+
+    if(vm.body == '' | vm.body == null | vm.body == undefined){
+      sendData.body = {id: null};
+    }
+    else{
+      sendData.body = vm.body;
+    }
     sendData.condition = vm.condition;
     sendData.comments = vm.comments;
 
-    console.log(sendData);
+    console.log('send data', sendData);
 
     //posting the info to the db and routing if successful to /humidor
     // $http.post('/humidor/addACigar', sendData).then(function(response){
@@ -251,24 +293,28 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     //case 1 add cigar to db and brand + name = 'other' to db, then add to
     //users_cigars
     if(vm.brand.brand == 'other'){
+      console.log('humcontrl addToBrand');
       CigarService.addToBrand(sendData).then(handleSuccess, handleFailure);
     }
 
     //case 2 add name and cigar to db and then add to users_cigars
-    if(vm.name.name == 'other'){
+    else if(vm.name.name == 'other'){
+      console.log('humcntrl addToCigars');
       CigarService.addToCigars(sendData).then(handleSuccess, handleFailure);
     }
 
     //case 3 just add to users_cigars
-    if(sendData.name.origin_country == sendData.origin.origin_country ||
+    else if(sendData.name.origin_country == sendData.origin.origin_country ||
     sendData.name.wrapper_color == sendData.wrapperColor.wrapper_color_name ||
     sendData.name.wrapper_country == sendData.wrapperCountry.wrapper_country ||
     // this is where filler check would go
     sendData.name.body == sendData.body.body){
+      console.log('humcntrl addToUserCigars');
       CigarService.addToUserCigars(sendData).then(handleSuccess, handleFailure);
     }
     //case 4 update cigars db and then add to users_cigars
     else {
+      console.log('humcntrl cigarSave');
       CigarService.cigarSave(sendData).then(handleSuccess, handleFailure);
     }
   };

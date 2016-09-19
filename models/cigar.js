@@ -63,7 +63,14 @@ function updateAndAdd(data, callback){
       return callback(err);
     }
 
-    client.query('UPDATE ;', [], function(err, result){
+    client.query('WITH updated AS (UPDATE cigars SET body_id = $1, wrapper_color_id = '
+    + '$2, wrapper_country_id = $3, origin_id = $4, filler_combo_id = $5 WHERE '
+    + 'cigars.name = $6 RETURNING id) INSERT INTO users_cigars (users_id, '
+    + 'cigars_id, date, quantity, sizes_id, gauges_id, condition, comments) VALUES '
+    + '($7, (SELECT updated.id FROM updated), $8, $9, $10, $11, $12, $13);',
+    [data.body.id, data.wrapperColor.id, wrapperCountry.id, data.origin.id, null,
+    data.name.name, data.user.id, data.date, data.quantity, data.size.id, data.gauge.id,
+    data.condition, data.comments], function(err, result){
       if(err){
         done();
         return callback(err);
@@ -236,7 +243,7 @@ function createAndAdd(data, callback){
     + 'VALUES ($7, (SELECT new.id from new), $8, $9, $10, $11, $12, $13);',
     [data.brand.id, data.name.name, data.body.id, data.origin.id,
       data.wrapperColor.id, data.wrapperCountry.id, data.user.id, data.date,
-    data.quantity, data.size, data.gauge, data.condition, data.comments],
+    data.quantity, data.size.id, data.gauge.id, data.condition, data.comments],
     function(err, result){
       if(err){
         done();
@@ -263,7 +270,7 @@ function addToUserCigars(data, callback){
     client.query('INSERT INTO users_cigars (user_id, cigars_id, date, quantity, '
     + 'sizes_id, gauges_id, condition, comments) VALUES ($1, $2, $3, $4, $5, $6, '
     + '$7, $8);',
-    [data.user.id, data.name.id, data.date, data.quantity, data.size, data.gauge,
+    [data.user.id, data.name.id, data.date, data.quantity, data.size.id, data.gauge.id,
     data.condition, data.comments], function(err, result){
       if(err){
         done();
@@ -315,7 +322,7 @@ function addToBrand(data, callback){
     + '$17, $18, $19, $20);',
     [data.brand, data.name, data.body.id, data.wrapperColor.id, data.wrapperCountry.id,
     data.origin.id, null, 'other', null, null, null, null, null, data.user.id, data.date,
-    data.quantity, data.size, data.gauge, data.condition, data.comments], function(err, result){
+    data.quantity, data.size.id, data.gauge.id, data.condition, data.comments], function(err, result){
       if(err){
         done();
         return callback(err);
@@ -339,5 +346,6 @@ module.exports = {
   createAndAdd: createAndAdd,
   addToUserCigars: addToUserCigars,
   findByIdAndRemove: findByIdAndRemove,
-  addToBrand: addToBrand
+  addToBrand: addToBrand,
+  updateAndAdd: updateAndAdd
 };

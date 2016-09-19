@@ -19,7 +19,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
 
     }, function(err) {
       console.log('Error getting cigarData', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -31,7 +31,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       console.log('cigarArrays', vm.cigarArrays);
     }, function(err){
       console.log('error getting arrayList', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -42,7 +42,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       console.log('routing to /ratings', vm.ratings);
     }, function(respnse) {
       console.log('error routing to /ratings', response);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -53,7 +53,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       console.log('userCigarData to /userCigars', vm.userCigarData);
     }, function(response) {
       console.log('error routing to /userCigars', response);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -64,7 +64,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       console.log('hygrometers, to /hygrometer', vm.hygrometers);
     }, function(response) {
       console.log('error routing to /hygrometer', response);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -75,7 +75,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       $location.path('/hygrometer');
     }, function(err){
       console.log('err adding a hygro', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -85,7 +85,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       $location.path('/humidor');
     }, function(err){
       console.log('err adding a cigar', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -95,7 +95,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       $location.path('/humidor')
       }, function(err){
         console.log('err adding first cigar to db', err);
-        response.sendStatus(500);
+        // response.sendStatus(500);
       });
 
   };
@@ -106,7 +106,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       $location.path('/humidor');
     }, function(err){
       console.log('err adding to cigars and to users_cigars', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -116,7 +116,17 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       $location.path('/humidor');
     }, function(err){
       console.log('err adding to users_cigars', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
+    });
+  };
+
+  function updateAndAdd(sendData){
+    return $http.post('/humidor/updateAndAdd', sendData).then(function(response){
+      console.log('succes updating and adding to users_cigars', response);
+      $location.path('/humidor');
+    }, function(err){
+      console.log('err updating and adding to users_cigars', err);
+      // response.sendStatus(500);
     });
   };
 
@@ -128,7 +138,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
       $location.path('/ratings');
     }, function(err){
       console.log('err adding a rating', err);
-      response.sendStatus(500);
+      // response.sendStatus(500);
     });
   };
 
@@ -177,7 +187,11 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     hygrometerSave: hygrometerSave,
     ratings: ratings,
     hygrometers: hygrometers,
-    remove: remove
+    remove: remove,
+    addToCigars: addToCigars,
+    addToBrand: addToBrand,
+    updateAndAdd: updateAndAdd,
+    addToUserCigars: addToUserCigars
 
   };
 //filter function to check if dropdown options are unique

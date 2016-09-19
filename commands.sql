@@ -447,3 +447,6 @@ wrapper_country_id, origin_id, filler_combo_id) VALUES ((SELECT newbrand.id FROM
 INSERT INTO users_cigars(users_id, cigars_id, date, quantity, sizes_id, gauges_id,
 condition, comments) VALUES(1,(SELECT newcigar.id FROM newcigar), '09-14-2016', 3,
 3, 3, 'like new', 'please work');
+
+--update cigars and add to users_cigars
+WITH updated AS (UPDATE cigars SET body_id = 3, wrapper_color_id = 3 WHERE cigars.name = 'bleh' RETURNING id) INSERT INTO users_cigars (users_id, cigars_id, date, quantity, sizes_id, gauges_id, condition, comments) VALUES (1, (SELECT updated.id FROM updated), '09-16-2016', 5, 5, 5, 'like new', 'bleh');

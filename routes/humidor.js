@@ -127,9 +127,23 @@ router.post('/addToBrand', function(request, response, next){
       response.redirect('/humidor')
     }
   });
+});
 
+router.post('/updateAndAdd', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
 
-})
+  Cigars.updateAndAdd(sendData, function(err, put){
+    if(err){
+      console.log('put /routes/humidor/updateAndAdd', err);
+    }
+    else{
+      console.log('success updating cigars and adding to users_cigars');
+      response.redirect('/humidor');
+    }
+  });
+});
 
 router.delete('/remove/:id', function(request, response){
   var id = request.params.id;
