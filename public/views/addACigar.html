@@ -75,7 +75,7 @@
   <div ng-hide="humidor.edit.more">
     <label for="wrapperColor">Wrapper Color:</label>
     <!-- <input type="text" id="wrapperColor" ng-model="humidor.wrapperColor"/> -->
-    <select ng-model="humidor.wrapperColor" ng-options="wrapper.wrapper_color_name for wrapper in humidor.cigarArrays | filter: {wrapper_color_name: humidor.name.wrapper_color_name} | filter: {wrapper_color_name: ''}">
+    <select ng-model="humidor.wrapperColor" ng-options="wrapper.wrapper_color_name for wrapper in humidor.cigarArrays | filter: {wrapper_color_name: humidor.name.wrapper_color_name} | filter: {wrapper_color_name: null} | filter: {wrapper_color_name: ''}">
       <option value="">- Choose a Wrapper Color -</option>
     </select>
     <span>{{humidor.wrapperColor.wrapper_color_description}}</span>

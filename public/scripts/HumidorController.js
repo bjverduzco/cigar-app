@@ -144,19 +144,19 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     }
     vm.filler = [];
     //totally doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    for(var i = 0; i < vm.name.filler_country.length; i++){
-      if(vm.name.filler !== '' | vm.name.filler !== null){
-        for(var j = 0; j < vm.cigarArrays.length; j++){
-          if(vm.name.filler_country[i] == vm.cigarArrays[j].filler_country){
-            vm.filler.push(vm.cigarArrays[j]);
-            console.log(vm.filler);
-          }
-        }
-      }
-      else {
-        vm.filler = '';
-      }
-    }
+    // for(var i = 0; i < vm.name.filler_country.length; i++){
+    //   if(vm.name.filler !== '' | vm.name.filler !== null){
+    //     for(var j = 0; j < vm.cigarArrays.length; j++){
+    //       if(vm.name.filler_country[i] == vm.cigarArrays[j].filler_country){
+    //         vm.filler.push(vm.cigarArrays[j]);
+    //         console.log(vm.filler);
+    //       }
+    //     }
+    //   }
+    //   else {
+    //     vm.filler = '';
+    //   }
+    // }
   };
 
   //route to get /addACigar form from cigar list
@@ -200,10 +200,12 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     //making newBrand the data that needs to be added to the db
     // had the first if as an or with | vm.newBrand === '' | but i think this is
     //the proper way for validation that i want
-    if(vm.brand !== 'other'){
+    if(vm.brand.brand !== 'other'){
+      console.log('do you work?');
       sendData.brand = vm.brand;
     }
-    else if(vm.brand === 'other' || vm.newBrand === ''){
+    else if(vm.brand === 'other' || vm.newBrand === '' || vm.brand === null || vm.brand == undefined){
+      console.log('no seriously do you?');
       return alert('Please fill out all of the required fields.');
     }
     else{
@@ -215,10 +217,10 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     //making newName the data that needs to be added to the db
     // had the first if as an or with | vm.newName === '' | but i think this is
     // the proper way for validation that i want
-    if(vm.name !== 'other'){
+    if(vm.name.name !== 'other'){
       sendData.name = vm.name;
     }
-    else if(vm.name === 'other' || vm.newName === ''){
+    else if(vm.name === 'other' || vm.newName === '' || vm.name == null || vm.name == undefined){
       return alert('Please fill out all of the required fields.')
     }
     else{
@@ -237,7 +239,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     }
 
     if(vm.gauge == '' | vm.gauge == null | vm.gauge == undefined){
-      sendData.gague = {id: null};
+      sendData.gauge = {id: null};
     }
     else{
       sendData.gauge = vm.gauge;
