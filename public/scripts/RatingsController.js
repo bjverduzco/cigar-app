@@ -111,19 +111,19 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
         }
         vm.filler = [];
         //totally doesnt work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        for(var i = 0; i < vm.name.filler_country.length; i++){
-          if(vm.name.filler !== '' | vm.name.filler !== null){
-            for(var j = 0; j < vm.cigarArrays.length; j++){
-              if(vm.name.filler_country[i] == vm.cigarArrays[j].filler_country){
-                vm.filler.push(vm.cigarArrays[j]);
-                console.log(vm.filler);
-              }
-            }
-          }
-          else {
-            vm.filler = '';
-          }
-        }
+        // for(var i = 0; i < vm.name.filler_country.length; i++){
+        //   if(vm.name.filler !== '' | vm.name.filler !== null){
+        //     for(var j = 0; j < vm.cigarArrays.length; j++){
+        //       if(vm.name.filler_country[i] == vm.cigarArrays[j].filler_country){
+        //         vm.filler.push(vm.cigarArrays[j]);
+        //         console.log(vm.filler);
+        //       }
+        //     }
+        //   }
+        //   else {
+        //     vm.filler = '';
+        //   }
+        // }
       }
     }
   };
@@ -161,7 +161,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     if(vm.brand !== 'other'){
       sendData.brand = vm.brand;
     }
-    else if(vm.brand === 'other' || vm.newBrand === ''){
+    else if(vm.brand === 'other' || vm.newBrand === '' || vm.brand === null || vm.brand == undefined){
       return alert('Please fill out all of the required fields.');
     }
     else{
@@ -175,7 +175,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     if(vm.name !== 'other'){
       sendData.name = vm.name;
     }
-    else if(vm.name === 'other' || vm.newName === ''){
+    else if(vm.name === 'other' || vm.newName === '' || vm.name == null || vm.name == undefined){
       return alert('Please fill out all of the required fields.')
     }
     else{
@@ -187,13 +187,54 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     // sendData.picUpload = vm.picUpload;
     sendData.rating = vm.rating;
     sendData.date = vm.date;
-    sendData.size = vm.size;
-    sendData.gauge = vm.gauge;
-    sendData.origin = vm.orgin;
-    sendData.wrapperColor = vm.wrapperColor;
-    sendData.wrapperCountry = vm.wrapperCountry;
-    sendData.filler = vm.filler;
-    sendData.body = vm.body;
+    if(vm.size == '' | vm.size == null | vm.size == undefined){
+      sendData.size = {id: null};
+    }
+    else{
+      sendData.size = vm.size;
+    }
+
+    if(vm.gauge == '' | vm.gauge == null | vm.gauge == undefined){
+      sendData.gauge = {id: null};
+    }
+    else{
+      sendData.gauge = vm.gauge;
+    }
+
+    if(vm.origin == '' | vm.origin == null | vm.origin == undefined){
+      sendData.origin = {id: null};
+    }
+    else{
+      sendData.origin = vm.origin;
+    }
+
+    if(vm.wrapperColor == '' | vm.wrapperColor == null | vm.wrapperColor == undefined){
+      sendData.wrapperColor = {id: null};
+    }
+    else{
+      sendData.wrapperColor = vm.wrapperColor;
+    }
+
+    if(vm.wrapperCountry == '' | vm.wrapperCountry == null | vm.wrapperCountry == undefined){
+      sendData.wrapperCountry = {id: null};
+    }
+    else{
+      sendData.wrapperCountry = vm.wrapperCountry;
+    }
+
+    if(vm.filler == '' | vm.filler == null | vm.filler == undefined){
+      sendData.filler = {id: null};
+    }
+    else{
+      sendData.filler = vm.filler;
+    }
+
+    if(vm.body == '' | vm.body == null | vm.body == undefined){
+      sendData.body = {id: null};
+    }
+    else{
+      sendData.body = vm.body;
+    }
     sendData.taste = vm.taste;
     sendData.draw = vm.draw;
     sendData.condition = vm.condition;
@@ -202,7 +243,31 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
 
     console.log(sendData);
 
-    CigarService.ratingSave(sendData).then(handleSuccess, handleFailure);
+    //case 1 add cigar to db and brand + name = 'other' to db, then add to
+    //ratings
+    if(vm.brand.brand == 'other'){
+      console.log('ratcontrl addToBrandAndRate');
+      CigarService.addToBrandAndRate(sendData).then(handleSuccess, handleFailure);
+    }
+    //case 2 add name to cigars and then add to ratings
+    else if(vm.name.name == 'other'){
+      console.log('ratcontrl addToCigarsAndRatings');
+      CigarService.addToCigarsAndRatings(sendData).then(handleSuccess, handleFailure);
+    }
+    //case 3 add to ratings
+    else if(sendData.name.origin_country == sendData.origin.origin_country &&
+    sendData.name.wrapper_color == sendData.wrappercolor.wrapper_color_name &&
+    sendData.name.wrapper_country == sendData.wrapperCountry.wrapper_country &&
+    sendData.name.body == senddata.body.body){
+      console.log('ratcontrl addToRatings');
+      CigarService.ratingSave(sendData).then(handleSuccess, handleFailure);
+    }
+    //case 4 update cigars in db and add to ratings
+    else{
+      console.log('ratcontrl updateAndRate');
+      CigarService.updateAndRate(sendData).then(handleSuccess, handleFailure);
+    }
+    // CigarService.ratingSave(sendData).then(handleSuccess, handleFailure);
     //posting the data to the db and routing if successful to /ratings
     // $http.post('/ratings/addARating', sendData).then(function(response){
     //   console.log('success adding rating', response);

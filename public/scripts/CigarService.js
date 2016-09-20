@@ -142,6 +142,33 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     });
   };
 
+  function addToBrandAndRate(sendData){
+    return $http.post('/ratings/addToBrandAndRate', sendData).then(function(resposne){
+      console.log('success adding to brand and rating', resposne);
+      $location.path('/ratings');
+    }, function(err){
+      console.log('err adding to brand and rating', err);
+    });
+  };
+
+  function addToCigarsAndRatings(sendData){
+    return $http.post('/ratings/addToCigarsAndRatings', sendData).then(function(response){
+      console.log('success adding to cigars and rating', response);
+      $location.path('/ratings');
+    }, function(err){
+      console.log('err adding to cigars and rating', err);
+    });
+  };
+
+  function updateAndRate(sendData){
+    return $http.post('/ratings/updateAndRate', sendData).then(function(response){
+      console.log('success updating and rating', response);
+      $location.path('/ratings');
+    }, function(err){
+      console.log('err updating cigar and rating', err);
+    });
+  };
+
   function remove(id){
     return $http.delete('/humidor/remove/:' + id).then(function(response){
       console.log(response);
@@ -182,17 +209,19 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     cigarData: cigarData,
     cigarArrays: cigarArrays,
     userCigarData: userCigarData,
-    cigarSave: cigarSave,
-    ratingSave: ratingSave,
     hygrometerSave: hygrometerSave,
     ratings: ratings,
     hygrometers: hygrometers,
     remove: remove,
     addToCigars: addToCigars,
     addToBrand: addToBrand,
+    cigarSave: cigarSave,
     updateAndAdd: updateAndAdd,
-    addToUserCigars: addToUserCigars
-
+    addToUserCigars: addToUserCigars,
+    addToBrandAndRate: addToBrandAndRate,
+    addToCigarsAndRatings: addToCigarsAndRatings,
+    ratingSave: ratingSave,
+    updateAndRate: updateAndRate
   };
 //filter function to check if dropdown options are unique
 }]).filter('unique', ['CigarService', function(CigarService) {
