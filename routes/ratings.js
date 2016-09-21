@@ -42,5 +42,56 @@ router.post('/addARating', function(request, response, next){
   });
 });
 
+router.post('/addToBrandAndRate', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Ratings.addToBrandAndRate(sendData, function(err, post){
+    if(err){
+      console.log('post for routes/ratings/addToBrandAndRate', err);
+      next(err);
+    }
+    else{
+      console.log('success adding to brand and rating cigar');
+      response.redirect('/ratings');
+    }
+  });
+});
+
+router.post('/addToCigarsAndRatings', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Ratings.addToCigarsAndRatings(sendData, function(err, post){
+    if(err){
+      console.log('fail post for routes/ratings/addToCigarsAndRatings', err);
+      next(err);
+    }
+    else{
+      console.log('success adding to cigars and rating cigar');
+      response.redirect('/ratings');
+    }
+  });
+});
+
+router.post('/updateAndRate', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Ratings.updateAndRate(sendData, function(err, post){
+    if(err){
+      console.log('fail post to routes/ratings/updateAndRate', err);
+      next(err);
+    }
+    else{
+      console.log('success updating cigar and rating');
+      response.redirect('/ratings');
+    }
+  });
+});
+
 
 module.exports = router;

@@ -125,8 +125,78 @@ function getRatingList(callback){
   });
 };
 
+function addToBrandAndRate(data){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+
+    client.query('query', [values], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
+
+function addToCigarsAndRatings(data){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+
+    client.query('query', [values], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
+
+function updateAndRate(data){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+
+    client.query('query', [values], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+
+      client.query('query', [values], function(err, result){
+        if(err){
+          done();
+          return callback(err);
+        }
+        else{
+          callback(null, result.rows[0]);
+          done();
+        }
+      });
+    });
+  });
+};
+
 module.exports = {
   create: create,
   createAndAdd: createAndAdd,
-  getRatingList: getRatingList
+  getRatingList: getRatingList,
+  addToBrandAndRate: addToBrandAndRate,
+  addToCigarsAndRatings: addToCigarsAndRatings,
+  updateAndRate: updateAndRate
 };
