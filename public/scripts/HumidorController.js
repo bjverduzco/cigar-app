@@ -306,9 +306,9 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     }
 
     //case 3 just add to users_cigars
-    else if(sendData.name.origin_country == sendData.origin.origin_country ||
-    sendData.name.wrapper_color == sendData.wrapperColor.wrapper_color_name ||
-    sendData.name.wrapper_country == sendData.wrapperCountry.wrapper_country ||
+    else if(sendData.name.origin_country == sendData.origin.origin_country &&
+    sendData.name.wrapper_color == sendData.wrapperColor.wrapper_color_name &&
+    sendData.name.wrapper_country == sendData.wrapperCountry.wrapper_country &&
     // this is where filler check would go
     sendData.name.body == sendData.body.body){
       console.log('humcntrl addToUserCigars');

@@ -132,7 +132,16 @@ function addToBrandAndRate(data){
       return callback(err);
     }
 
-    client.query('query', [values], function(err, result){
+    client.query('WITH newbrand AS (INSERT INTO brand (brand) VALUES ($1) RETURNING id) '
+    + 'newcigar AS (INSERT INTO cigars (brand_id, name, body_id, wrapper_color_id, '
+    + 'wrapper_country_id, origin_id, filler_combo_id) VALUES ((SELECT newbrand.id '
+    + 'FROM newbrand), $2, $3, $4, $5, $6, $7) RETURNING id), '
+    + 'INSERT INTO ratings (cigars_id, users_id, date, rating, sizes_id, gauges_id, taste '
+    + 'draw, condition, pairing, comments) VALUES ((SELECT newcigar.id FROM newcigar), '
+    + '$8, $9, $10, $11, $12, $13, $14, $15, $16, $17);', [data.brand, data.name,
+      data.body.id, data.wrapperColor.id, data.wrapperCountry.id, data.origin.id,
+      null, data.user.id, data.date, data.rating, data.size.id, data.gauge.id,
+      data.taste, data.draw, data.condition, data.pairing, data.comments], function(err, result){
       if(err){
         done();
         return callback(err);
@@ -152,7 +161,15 @@ function addToCigarsAndRatings(data){
       return callback(err);
     }
 
-    client.query('query', [values], function(err, result){
+    client.query('WITH newcigar AS (INSERT INTO cigars (brand_id, name, body_id, '
+    + 'origin_id, wrapper_color_id, wrapper_country_id) VALUES ($1, $2, $3, $4, $5, '
+    + '$6) RETURNING id) INSERT INTO ratings (cigars_id, users_id, date, rating, '
+    + 'sizes_id, gauges_id, taste, draw, condition, pairing, comments) VALUES '
+    + '((SELECT newcigar.id FROM newcigar), $7, $8, $9, $10, $11, $12, $13, $14, '
+    + '$15, $16)', [data.brand.id, data.name, data.body.id, data.origin.id, data.wrapperColor.id,
+      data.wrapperCountry.id, data.user.id, data.date, data.rating, data.size.id,
+      data.gauge.id, data.taste, data.draw, data.condition, data.pairing, data.comments],
+      function(err, result){
       if(err){
         done();
         return callback(err);
@@ -172,22 +189,23 @@ function updateAndRate(data){
       return callback(err);
     }
 
-    client.query('query', [values], function(err, result){
+    client.query('WITH updated AS (UPDATE cigars SET body_id = $1, wrapper_color_id '
+    + '= $2, wrapper_country_id = $3, origin_id = $4, filler_combo_id = $5 WHERE '
+    + 'cigars.name = $6 RETURNING id) INSERT INTO ratings (cigars_id, users_id, '
+    + 'date, rating, sizes_id, gauges_id, taste, draw, condition, pairing, comments) '
+    + 'VALUES ((SELECT updated.id FROM updated), $7, $8, $9, $10, $11, $12, $13, '
+    + '$14, $15, $16);', [data.body.id, data.wrapperColor.id, wrapperCountry.id,
+      data.origin.id, null, data.name.name, data.user.id, data.date, data.rating,
+      data.size.id, data.gauge.id, data.taste, data.draw, data.condition, data.pairing,
+      data.comments], function(err, result){
       if(err){
         done();
         return callback(err);
       }
-
-      client.query('query', [values], function(err, result){
-        if(err){
-          done();
-          return callback(err);
-        }
-        else{
-          callback(null, result.rows[0]);
-          done();
-        }
-      });
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
     });
   });
 };

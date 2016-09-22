@@ -236,11 +236,11 @@ function createAndAdd(data, callback){
 
     // client.query('INSERT INTO cigars (brand, name, origin, wrapper_color, wrapper_country, filler, body) VALUES ($1, $2, $3, $4, $5, $6, $7);',
     // [data.brand, data.name, data.origin.country, data.wrapperColor, data.wrapperCountry, data.filler, data.body],
-    client.query('WITH new AS (INSERT INTO cigars (brand_id, name, body_id, '
+    client.query('WITH newcigar AS (INSERT INTO cigars (brand_id, name, body_id, '
     + 'origin_id, wrapper_color_id, wrapper_country_id) VALUES ($1, $2, '
     + '$3, $4, $5, $6) RETURNING id) INSERT INTO users_cigars (users_id, '
     + 'cigars_id, date, quantity, sizes_id, gauges_id, condition, comments) '
-    + 'VALUES ($7, (SELECT new.id from new), $8, $9, $10, $11, $12, $13);',
+    + 'VALUES ($7, (SELECT newcigar.id from newcigar), $8, $9, $10, $11, $12, $13);',
     [data.brand.id, data.name.name, data.body.id, data.origin.id,
       data.wrapperColor.id, data.wrapperCountry.id, data.user.id, data.date,
     data.quantity, data.size.id, data.gauge.id, data.condition, data.comments],
