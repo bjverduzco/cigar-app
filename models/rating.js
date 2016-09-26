@@ -210,11 +210,32 @@ function updateAndRate(data){
   });
 };
 
+function saveRatingEdit(data, callback){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+
+    client.query('query', [values], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
+
 module.exports = {
   create: create,
   createAndAdd: createAndAdd,
   getRatingList: getRatingList,
   addToBrandAndRate: addToBrandAndRate,
   addToCigarsAndRatings: addToCigarsAndRatings,
-  updateAndRate: updateAndRate
+  updateAndRate: updateAndRate,
+  saveRatingEdit: saveRatingEdit
 };

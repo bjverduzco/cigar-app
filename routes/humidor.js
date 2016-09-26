@@ -160,6 +160,23 @@ router.delete('/remove/:id', function(request, response){
   });
 });
 
+router.put('/saveCigarEdit', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Cigars.saveEdit(sendData, function(err, put){
+    if(err){
+      console.log('err updating users_cigars', err);
+      response.sendStatus(500);
+    }
+    else{
+      console.log('cigar updated');
+      response.sendStatus(200);
+    }
+  });
+});
+
 // router.get('/ratings', function(request, response){
 //   response.sendFile(path.join(__dirname, '../public/views/ratings.html'));
 // });

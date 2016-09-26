@@ -298,6 +298,60 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     vm.edit.less = !vm.edit.less;
   };
 
+  vm.saveRatingEdit = function(rating, size, gauge, taste, draw, condition, pairing, comments){
+    var sendData = {};
+    var notSize = true;
+    var notGauge = true;
+
+    if(rating > 0){
+      sendData.rating = rating;
+      console.log('rating', sendData.rating);
+    }
+    for(var i = 0; i < vm.cigarArrays.length; i++){
+      if(size = vm.cigarArrays[i].sizes_number){
+        sendData.size = vm.cigarArrays[i].id;
+        notSize = false;
+        console.log('size', sendData.size);
+      }
+      if(gauge = vm.cigarArrays[i].gauge_number){
+        sendData.gauge = vm.cigarArrays[i].id;
+        notGauge = false;
+        console.log('gauge', sendData.gauge);
+      }
+    }
+    sendData.taste = taste;
+    sendData.draw = draw;
+    sendData.condition = condition;
+    sendData.pairing = pairing;
+    sendData.comments = comments;
+    if(notSize == true && notGauge == true){
+      alert('Please use valid Size and Gauge numbers');
+      return;
+    }
+    else if(notSize == true){
+      alert('Please use a valid Size number');
+      return;
+    }
+    else if(notGauge == true){
+      alert('Please use a valid Gauge number');
+      return;
+    }
+    else{
+      CigarService.saveRatingEdit(sendData).then(handleEditSuccess, handleEditFailure);
+    }
+    console.log('test', rating, size, gauge, taste, draw, condition, pairing, comments);
+  }
+
+  function handleEditSuccess(){
+    console.log('success editing rating');
+    $location.path('/ratings');
+  }
+
+  function handleEditFailure(){
+    console.log('failure editing rating');
+    alert('Edit failed');
+  };
+
   vm.remove = function(){
     console.log('totally removed');
   };

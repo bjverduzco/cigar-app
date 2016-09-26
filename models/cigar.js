@@ -335,6 +335,26 @@ function addToBrand(data, callback){
   });
 };
 
+function saveEdit(data, callback){
+  pool.connect(function(err, client, done){
+    if(err){
+      done();
+      return callback(err);
+    }
+
+    client.quer('query', [values], function(err, result){
+      if(err){
+        done();
+        return callback(err);
+      }
+      else{
+        callback(null, result.rows[0]);
+        done();
+      }
+    });
+  });
+};
+
 
 
 
@@ -347,5 +367,6 @@ module.exports = {
   addToUserCigars: addToUserCigars,
   findByIdAndRemove: findByIdAndRemove,
   addToBrand: addToBrand,
-  updateAndAdd: updateAndAdd
+  updateAndAdd: updateAndAdd,
+  saveEdit: saveEdit
 };

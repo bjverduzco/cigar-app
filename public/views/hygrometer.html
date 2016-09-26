@@ -28,6 +28,8 @@
         <th>Max Humidity</th>
         <th>Location</th>
         <th>Display</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody >
@@ -39,9 +41,9 @@
         <td><span ng-show="hygrometer.edit.more">{{hygro.humidity_max}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.humidity_max"/></td>
         <td><span ng-show="hygrometer.edit.more">{{hygro.location}}</span><input ng-hide="hygrometer.edit.less" ng-model="hygro.location"/></td>
         <td><span>{{hygrometer.display}}</td>
-          <td><button ng-show="hygrometer.edit.more" ng-click="hygrometer.editHygrometers()">Edit</button></td>
-          <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.saveHygrometers()">Save</button></td>
-          <td><button ng-hide="hygrometer.edit.less" ng-click="hygrometer.editHygrometers()">Cancel</button></td>
+        <td><button ng-show="hygrometer.edit.more" ng-click="hygrometer.editHygrometers()">Edit</button>
+        <button ng-hide="hygrometer.edit.less" ng-click="hygrometer.saveHygrometers()">Save</button>
+        <button ng-hide="hygrometer.edit.less" ng-click="hygrometer.editHygrometers()">Cancel</button></td>
         <td><button ng-click="hygrometer.remove()">Remove</button></td>
       </tr>
     </tbody>

@@ -39,6 +39,7 @@
         <th>Physical Condition</th>
         <th>Comments</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody >
@@ -47,8 +48,8 @@
         <td>{{cigar.name}}</td>
         <td>{{cigar.date | date: "short"}}</td>
         <td><span ng-show="humidor.edit.more">{{cigar.quantity}}</span><input ng-hide="humidor.edit.less" type="text" ng-model="cigar.quantity" value="{{cigar.quantity}}"/></td>
-        <td>{{cigar.size}}</td>
-        <td>{{cigar.gauge}}</td>
+        <td><span ng-show="humidor.edit.more">{{cigar.size}}</span><input ng-hide="humidor.edit.less" type="text" ng-model="cigar.size" value="{{cigar.size}}" /></td>
+        <td><span ng-show="humidor.edit.more">{{cigar.gauge}}</span><input ng-hide="humidor.edit.less" type="text" ng-model="cigar.gauge" value="{{cigar.gauge}}" /></td>
         <td>{{cigar.origin_country}}</td>
         <td>{{cigar.wrapper_color_name}}</td>
         <td>{{cigar.wrapper_color_description}}</td>
@@ -58,9 +59,9 @@
         <td><span ng-show="humidor.edit.more">{{cigar.condition}}</span><input ng-hide="humidor.edit.less" type="text" ng-model="cigar.condition" value="{{cigar.condition}}"/></td>
         <td><span ng-show="humidor.edit.more">{{cigar.comments}}</span><input ng-hide="humidor.edit.less" type="text" ng-model="cigar.comments" value="{{cigar.comments}}"/></td>
         <td><button ng-show="humidor.edit.more" ng-click="humidor.editCigars()">Edit</button>
-        <span><button ng-hide="humidor.edit.less" ng-click="humidor.saveCigareEdit()">Save</button></span>
+        <span><button ng-hide="humidor.edit.less" ng-click="humidor.saveCigarEdit(cigar.quantity, cigar.size, cigar.gauge, cigar.condition, cigar.comments)">Save</button></span>
         <span><button ng-hide="humidor.edit.less" ng-click="humidor.editCigars()">Cancel</button></span></td>
-        <!-- <td><button ng-click="humidor.remove(cigar.id)">Remove</button></td> -->
+        <td><button ng-click="humidor.remove(cigar.id)">Remove</button></td>
       </tr>
     </tbody>
   </table>

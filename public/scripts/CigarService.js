@@ -171,10 +171,28 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
 
   function remove(id){
     return $http.delete('/humidor/remove/:' + id).then(function(response){
-      console.log(response);
+      console.log('success removing from humidor', response);
       $location.path('/humidor');
     }, function(response){
       console.log(response);
+    });
+  };
+
+  function saveCigarEdit(sendData){
+    return $http.put('/humidor/saveCigarEdit', sendData).then(function(response){
+      console.log('success editing humidor', response);
+      $location.path('/humidor');
+    }, function(err){
+      console.log('err editing humidor', err);
+    });
+  };
+
+  function saveRatingEdit(sendData){
+    return $http.put('/ratings/saveRatingEdit', sendData).then(function(resposne){
+      console.log('success editing rating', response);
+      $location.path('/ratings');
+    }, function(err){
+      console.log('err editing rating', err);
     });
   };
 
@@ -221,7 +239,9 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
     addToBrandAndRate: addToBrandAndRate,
     addToCigarsAndRatings: addToCigarsAndRatings,
     ratingSave: ratingSave,
-    updateAndRate: updateAndRate
+    updateAndRate: updateAndRate,
+    saveCigarEdit: saveCigarEdit,
+    saveRatingEdit: saveRatingEdit
   };
 //filter function to check if dropdown options are unique
 }]).filter('unique', ['CigarService', function(CigarService) {

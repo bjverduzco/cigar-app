@@ -340,6 +340,56 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     vm.edit.less = !vm.edit.less;
   };
 
+  vm.saveCigarEdit = function(quantity, size, gauge, condition, comments){
+    var sendData = {};
+    var notSize = true;
+    var notGauge = true;
+    if(quantity > 0){
+      sendData.quantity = quantity;
+      console.log('quantity', sendData.quantity);
+    }
+    for(var i = 0; i < vm.cigarArrays.length; i++){
+      if(size == vm.cigarArrays[i].sizes_number){
+        sendData.size = vm.cigarArrays.id;
+        notSize = false;
+        console.log('size', sendData.size);
+      }
+      if(gauge == vm.cigarArrays[i].gauge_number){
+        sendData.gauge = vm.cigarArrays.id;
+        notGauge = false;
+        console.log('gauge', sendData.gauge);
+      }
+    }
+    sendData.condition = condition;
+    sendData.comments = comments;
+    if(notSize == true && notGauge == true){
+      alert('Please use valid Size and Gauge numbers');
+      return;
+    }
+    else if(notSize == true){
+      alert('Please use a valid Size number');
+      return;
+    }
+    else if(notGauge == true){
+      alert('Please use a valid Gauge number');
+      return;
+    }
+    else{
+      console.log('attempting to update cigars_users');
+      // CigarService.saveCigarEdit(sendData).then(handleEditSuccess, handleEditFailure);
+    }
+    // console.log('test', quantity, size, gauge, condition, comments);
+  };
+
+  function handleEditSuccess(){
+    console.log('success editing humidor');
+    $location.path('/humidor');
+  };
+
+  function handleEditFailure(){
+    alert('Edit failed');
+  };
+
   vm.remove = function(){
     console.log('totally removed');
   };

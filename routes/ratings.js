@@ -93,5 +93,22 @@ router.post('/updateAndRate', function(request, response, next){
   });
 });
 
+router.put('/saveRatingEdit', function(request, response, next){
+  var sendData = {};
+  sendData = request.body;
+  sendData.user = request.user;
+
+  Ratings.updateRating(sendData, function(err, put){
+    if(err){
+      console.log('failure put routes/ratings/saveRatingEdit', err);
+      next(err);
+    }
+    else{
+      console.log('success updating ratings');
+      response.redirect('ratings');
+    };
+  });
+});
+
 
 module.exports = router;
