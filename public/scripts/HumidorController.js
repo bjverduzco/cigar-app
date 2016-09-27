@@ -340,7 +340,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     vm.edit.less = !vm.edit.less;
   };
 
-  vm.saveCigarEdit = function(quantity, size, gauge, condition, comments){
+  vm.saveCigarEdit = function(quantity, size, gauge, condition, comments, id){
     var sendData = {};
     var notSize = true;
     var notGauge = true;
@@ -350,18 +350,20 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     }
     for(var i = 0; i < vm.cigarArrays.length; i++){
       if(size == vm.cigarArrays[i].sizes_number){
-        sendData.size = vm.cigarArrays.id;
+        sendData.size = vm.cigarArrays[i].id;
         notSize = false;
         console.log('size', sendData.size);
       }
       if(gauge == vm.cigarArrays[i].gauge_number){
-        sendData.gauge = vm.cigarArrays.id;
+        sendData.gauge = vm.cigarArrays[i].id;
         notGauge = false;
         console.log('gauge', sendData.gauge);
       }
     }
     sendData.condition = condition;
     sendData.comments = comments;
+    sendData.id = id;
+    console.log('condition, comments, cigar id in update', sendData.condition, sendData.comments, sendData.id);
     if(notSize == true && notGauge == true){
       alert('Please use valid Size and Gauge numbers');
       return;
@@ -376,13 +378,14 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     }
     else{
       console.log('attempting to update cigars_users');
-      // CigarService.saveCigarEdit(sendData).then(handleEditSuccess, handleEditFailure);
+      CigarService.saveCigarEdit(sendData).then(handleEditSuccess, handleEditFailure);
     }
     // console.log('test', quantity, size, gauge, condition, comments);
   };
 
   function handleEditSuccess(){
     console.log('success editing humidor');
+    vm.editCigars();
     $location.path('/humidor');
   };
 

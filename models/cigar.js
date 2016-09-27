@@ -342,7 +342,10 @@ function saveEdit(data, callback){
       return callback(err);
     }
 
-    client.quer('query', [values], function(err, result){
+    client.quer('UPDATE users_cigars SET quantity = $1, sizes_id = $2, gauges_id '
+    + ' = $3, condition = $4, comments = $5 WHERE cigars_id = $6 AND users_id = $7;',
+      [data.quantity, data.size, data.size, data.gauge, data.condition, data.comments,
+      data.id, data.user.id], function(err, result){
       if(err){
         done();
         return callback(err);

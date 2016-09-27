@@ -164,7 +164,8 @@ router.put('/saveCigarEdit', function(request, response, next){
   var sendData = {};
   sendData = request.body;
   sendData.user = request.user;
-
+  // console.log('test', sendData);
+  //
   Cigars.saveEdit(sendData, function(err, put){
     if(err){
       console.log('err updating users_cigars', err);

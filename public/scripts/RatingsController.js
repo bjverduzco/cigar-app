@@ -324,6 +324,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     sendData.condition = condition;
     sendData.pairing = pairing;
     sendData.comments = comments;
+    console.log('taste, draw, condition, pairing, comments update', sendData.taste, sendData.draw, sendData.condition, sendData.pairing, sendData.comments);
     if(notSize == true && notGauge == true){
       alert('Please use valid Size and Gauge numbers');
       return;
@@ -339,11 +340,12 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     else{
       CigarService.saveRatingEdit(sendData).then(handleEditSuccess, handleEditFailure);
     }
-    console.log('test', rating, size, gauge, taste, draw, condition, pairing, comments);
+    // console.log('test', rating, size, gauge, taste, draw, condition, pairing, comments);
   }
 
   function handleEditSuccess(){
     console.log('success editing rating');
+    vm.editCigars();
     $location.path('/ratings');
   }
 
