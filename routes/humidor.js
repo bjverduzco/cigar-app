@@ -169,7 +169,7 @@ router.put('/saveCigarEdit', function(request, response, next){
   Cigars.saveEdit(sendData, function(err, put){
     if(err){
       console.log('err updating users_cigars', err);
-      response.sendStatus(500);
+      next(err);
     }
     else{
       console.log('cigar updated');

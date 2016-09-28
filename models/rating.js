@@ -217,7 +217,11 @@ function saveRatingEdit(data, callback){
       return callback(err);
     }
 
-    client.query('query', [values], function(err, result){
+    client.query('UPDATE ratings SET rating = $1, sizes_id = $2, gauges_id = $3, '
+    + 'taste = $4, draw = $5, condition = $6, pairing = $7, comments = $8 WHERE '
+    + 'id = $9 AND users_id = $10;', [data.rating, data.size, data.gauge, data.taste,
+      data.draw, data.condition, data.pairing, data.comments, data.id, data.user.id],
+      function(err, result){
       if(err){
         done();
         return callback(err);

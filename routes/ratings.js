@@ -47,7 +47,7 @@ router.post('/addToBrandAndRate', function(request, response, next){
   sendData = request.body;
   sendData.user = request.user;
 
-  Ratings.addToBrandAndRate(sendData, function(err, post){
+  Rating.addToBrandAndRate(sendData, function(err, post){
     if(err){
       console.log('post for routes/ratings/addToBrandAndRate', err);
       next(err);
@@ -64,7 +64,7 @@ router.post('/addToCigarsAndRatings', function(request, response, next){
   sendData = request.body;
   sendData.user = request.user;
 
-  Ratings.addToCigarsAndRatings(sendData, function(err, post){
+  Rating.addToCigarsAndRatings(sendData, function(err, post){
     if(err){
       console.log('fail post for routes/ratings/addToCigarsAndRatings', err);
       next(err);
@@ -81,7 +81,7 @@ router.post('/updateAndRate', function(request, response, next){
   sendData = request.body;
   sendData.user = request.user;
 
-  Ratings.updateAndRate(sendData, function(err, post){
+  Rating.saveRatingEdit(sendData, function(err, post){
     if(err){
       console.log('fail post to routes/ratings/updateAndRate', err);
       next(err);
@@ -97,15 +97,16 @@ router.put('/saveRatingEdit', function(request, response, next){
   var sendData = {};
   sendData = request.body;
   sendData.user = request.user;
+  console.log('send data', sendData);
 
-  Ratings.updateRating(sendData, function(err, put){
+  Rating.saveRatingEdit(sendData, function(err, put){
     if(err){
       console.log('failure put routes/ratings/saveRatingEdit', err);
       next(err);
     }
     else{
       console.log('success updating ratings');
-      response.redirect('ratings');
+      response.sendStatus(200);
     };
   });
 });

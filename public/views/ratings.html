@@ -63,7 +63,7 @@
         <td><span ng-show="ratings.edit.more">{{cigar.pairing}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.pairing" value="{{cigar.pairing}}"/></td>
         <td><span ng-show="ratings.edit.more">{{cigar.comments}}</span><input ng-hide="ratings.edit.less" type="text" ng-model="cigar.comments" value="{{cigar.comments}}"/></td>
         <td><button ng-show="ratings.edit.more" ng-click="ratings.editCigars()">Edit</button>
-        <button ng-hide="ratings.edit.less" ng-click="ratings.saveRatingEdit(cigar.rating, cigar.size, cigar.gauge, cigar.taste, cigar.draw, cigar.condition, cigar.pairing, cigar.comments)">Save</button>
+        <button ng-hide="ratings.edit.less" ng-click="ratings.saveRatingEdit(cigar.rating, cigar.size, cigar.gauge, cigar.taste, cigar.draw, cigar.condition, cigar.pairing, cigar.comments, cigar.id)">Save</button>
         <button ng-hide="ratings.edit.less" ng-click="ratings.editCigars()">Cancel</button></td>
         <td><button ng-click="ratings.remove()">Remove</button></td>
       </tr>

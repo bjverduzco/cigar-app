@@ -344,6 +344,7 @@ angular.module('cigarApp').controller('HumidorController', ['$http', '$location'
     var sendData = {};
     var notSize = true;
     var notGauge = true;
+
     if(quantity > 0){
       sendData.quantity = quantity;
       console.log('quantity', sendData.quantity);

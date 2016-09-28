@@ -188,7 +188,7 @@ angular.module('cigarApp').factory('CigarService', ['$http', '$location', 'UserS
   };
 
   function saveRatingEdit(sendData){
-    return $http.put('/ratings/saveRatingEdit', sendData).then(function(resposne){
+    return $http.put('/ratings/saveRatingEdit', sendData).then(function(response){
       console.log('success editing rating', response);
       $location.path('/ratings');
     }, function(err){

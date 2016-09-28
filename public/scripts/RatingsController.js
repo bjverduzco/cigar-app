@@ -5,7 +5,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
   vm.cigarData = CigarService.cigarData();
   vm.cigarArrays = CigarService.cigarArrays();
   vm.rates = CigarService.ratings();
-  console.log(vm.ratings);
+  // console.log(vm.ratings);
 
   //arrays for sizes and gauges dropdown fields
   // vm.sizes = [{number: 3.4}, {number: 3.9}, {number: 4}, {number: 4.3}, {number: 4.5}, {number: 4.8}, {number: 5}, {number: 5.5}, {number: 5.6}, {number: 5.7}, {number: 6}, {number: 6.1}, {number: 6.2}, {number: 6.4}, {number: 6.5}, {number: 7}, {number: 7.6}, {number: 9.2}];
@@ -298,7 +298,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     vm.edit.less = !vm.edit.less;
   };
 
-  vm.saveRatingEdit = function(rating, size, gauge, taste, draw, condition, pairing, comments){
+  vm.saveRatingEdit = function(rating, size, gauge, taste, draw, condition, pairing, comments, id){
     var sendData = {};
     var notSize = true;
     var notGauge = true;
@@ -324,7 +324,8 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
     sendData.condition = condition;
     sendData.pairing = pairing;
     sendData.comments = comments;
-    console.log('taste, draw, condition, pairing, comments update', sendData.taste, sendData.draw, sendData.condition, sendData.pairing, sendData.comments);
+    sendData.id = id;
+    console.log('taste, draw, condition, pairing, comments, id update', sendData.taste, sendData.draw, sendData.condition, sendData.pairing, sendData.comments, sendData.id);
     if(notSize == true && notGauge == true){
       alert('Please use valid Size and Gauge numbers');
       return;
@@ -338,6 +339,7 @@ angular.module('cigarApp').controller('RatingsController', ['$http', '$location'
       return;
     }
     else{
+      console.log('attempting to update ratings');
       CigarService.saveRatingEdit(sendData).then(handleEditSuccess, handleEditFailure);
     }
     // console.log('test', rating, size, gauge, taste, draw, condition, pairing, comments);
