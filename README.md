@@ -2,7 +2,7 @@
 
 Prime Digital Academy Solo Project
 
-Deployed via heroku with bug's minor bugs yet to be fixed at: https://pacific-falls-56537.herokuapp.com/
+Deployed via heroku with bug's minor bugs yet to be fixed at: https://wittycigarapp.herokuapp.com/
 
 The application being created allows users to keep track of which cigars they currently own.
 The application will also provide the personal ratings and feelings of the user in order to
