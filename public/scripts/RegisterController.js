@@ -15,7 +15,7 @@ angular.module('cigarApp').controller('RegisterController', ['$http', '$location
 
     //post sending user data to register
     $http.post('/register', sendData).then(handleSuccess, handleFailure);
-  };
+  }
 
   //if user registration is successful route to /login
   function handleSuccess(response){

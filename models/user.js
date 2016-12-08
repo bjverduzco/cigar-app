@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
 var url = require('url');
-var config={};
+var config = {};
 
 if(process.env.DATABASE_URL != undefined) {
   var params = url.parse(process.env.DATABASE_URL);
